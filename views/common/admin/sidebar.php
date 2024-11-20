@@ -80,8 +80,8 @@
                 </a>
                 <div id="collapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="?role=admin&controller=user&view=customer">Danh sách khách hàng</a>
-                        <a class="collapse-item" href="?role=admin&controller=user&view=admin">Danh sách quản trị viên</a>
+                        <a class="collapse-item" href="?role=admin&controller=voucher">Danh sách voucher</a>
+                        <a class="collapse-item" href="?role=admin&controller=voucher&action=add">Thêm voucher</a>
                     </div>
                 </div>
             </li>
