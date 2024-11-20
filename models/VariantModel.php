@@ -25,7 +25,7 @@ GROUP BY
     }
     public function getOneVariant($id)
     {
-        $sql = "SELECT s.size_id, d.color_id, v.base_price, v.sale_price, v.quantity, image_main, variant_main,
+        $sql = "SELECT s.size_id, d.color_id, v.base_price, v.sale_price, v.quantity, image_main, variant_main,product_id,
     v.variant_id,
     GROUP_CONCAT(c.image_link SEPARATOR ',') AS image_urls
 FROM 
@@ -42,20 +42,20 @@ GROUP BY
         $list = $stmt->fetch(PDO::FETCH_ASSOC);
         return $list;
     }
-    public function getColor(){
+    public function getColor()
+    {
         $sql = "SELECT * FROM colors";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $list;
     }
-    public function getSize(){
+    public function getSize()
+    {
         $sql = "SELECT * FROM sizes";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $list;
     }
-
-
 }

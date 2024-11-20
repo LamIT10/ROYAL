@@ -70,7 +70,6 @@ echo "</pre>";
                                     }
                                     ?></td>
                                 <td><?= number_format($item['base_price']) ?></td>
-
                                 <td><?= number_format($item['sale_price']) ?></td>
                                 <td><?= $item['color_name'] ?></td>
                                 <td><?= $item['size_name'] ?></td>
@@ -81,7 +80,7 @@ echo "</pre>";
                                             <i class="fa fa-pencil-alt"></i>
                                         </button>
                                     </a>
-                                    <a onclick="return confirm('Các biển thể của sản phẩm này cũng sẽ bị xoá, bạn có chắc chắn không?')" href="?role=admin&controller=product&action=delete&id=<?= $item['variant_id'] ?>">
+                                    <a onclick="return confirm('Bạn có chắc chắn không?')" href="?role=admin&controller=product&action=deleteVariant&id=<?= $item['variant_id'] ?>&product_id=<?= $_GET['id'] ?>">
                                         <button class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash"></i>
                                         </button>

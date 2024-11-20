@@ -1,10 +1,6 @@
 <div class="container mt-4">
-    <?php
-
-    ?>
     <form action="?role=admin&controller=product&action=updateVariant&id=<?= $_GET['id'] ?>&product_id=<?= $_GET['product_id'] ?>" method="POST" enctype="multipart/form-data" class="p-4 mb-5 shadow-sm mx-auto" style="width: 83.33%; background: #fff; border-radius: 8px;">
         <h6 class="mb-4 font-weight-bold text-primary">Sửa Biến Thể</h6>
-
         <div class="row mb-3">
 
             <!-- Trường Base Price -->
@@ -25,8 +21,6 @@
             <div class="col-md-4">
                 <label for="variant_main" class="form-label">Variant Main</label>
                 <select class="form-select" id="variant_main" name="variant_main">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
                     <?php
                     for ($i = 0; $i < 2; $i++) {
                     ?>
@@ -50,6 +44,7 @@
                     </div>
                 <?php
                 }
+                getErorr('color_id');
                 ?>
             </div>
 
@@ -66,6 +61,8 @@
                     }
                     ?>
                 </select>
+                <p><?php getErorr('size_id') ?></p>
+                <p><?php getErorr('variant') ?></p>
             </div>
 
             <!-- Trường Quantity -->
@@ -81,6 +78,7 @@
                 <label for="image" class="form-label">Image main</label>
                 <input type="file" class="form-control" id="image" name="image_main">
                 <img class="m-2 rounded border" width="200px" src="uploads/<?= $variant['image_main'] ?>" alt="">
+                <?php getErorr('image_main') ?>
             </div>
             <div>
                 <label for="image" class="form-label">Image add</label>
