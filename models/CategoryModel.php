@@ -39,6 +39,7 @@ class CategoryModel extends Model
     }
     public function updateCategory($data = [], $id = null)
     {
+        var_dump($data);
         if (!empty($data["parent_id"])) {
             $sql = "WITH RECURSIVE category_hierarchy AS (
     SELECT category_id, parent_id
@@ -62,16 +63,38 @@ WHERE category_id = {$data["parent_id"]};
             }
         }
         if (empty($data["parent_id"])) $data["parent_id"] = null;
-        $this->update($data, "category_id = :id", ["id" => $_GET["id"]]);
+        return $this->update($data, "category_id = :id", ["id" => $_GET["id"]]);
     }
     public function deleteCategory($id)
     {
         $this->delete("category_id = :category_id", ["category_id" => $id]);
     }
-    public function changeStatuss($id, $status)
+    public function changeStatuss($idParent, $status, $id)
     {
         try {
-            $this->changeStatus("category_id = :category_id AND status = :status", ["category_id" => $id, "status" => $status]);
+            $newStatus = $status == 1 ? 0 : 1;
+            $parent = $this->selectOne("*", "category_id = :id", ["id" => $idParent]);
+            if ($newStatus == 1) { // mở sản phẩm
+                if ($parent) { // có parant
+                    $statusParent = $parent["status"];
+                    if ($statusParent == 0) {
+                        return 0;
+                        exit();
+                    };
+                }
+            } else {
+                if (!$parent) { // đóng sản phẩm
+                    $sql = "UPDATE {$this->table} set status = $newStatus where category_id = $id or parent_id = $id";
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->execute();
+                    return $stmt->rowCount();
+                    exit();
+                }
+            }
+            $sql = "UPDATE {$this->table} set status = $newStatus where category_id = $id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->rowCount();
         } catch (\Throwable $th) {
             throw $th;
         }

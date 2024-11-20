@@ -13,14 +13,16 @@ class HomeController extends Controller
           $this->loadModel("ProductModel");
           $this->product = new ProductModel();
      }
-     // public function index()
-     // {
-     //      $category = $this->category->getAllCategory();
-     //      $listBanners = $this->banner->getAllBanner();
-     //      $listProduct = $this->product->getAllProduct();
-     //      $title = "Trang chủ";
-     //      $content = "client/HomeClient";
-     //      $layoutPath = "client_layout";
-     //      $this->renderView($layoutPath, $content, ["title" => $title, "content" => $content, "category" => $category, "listBanners" => $listBanners, "listProduct" => $listProduct]);
-     // }
+     public function index()
+     {
+          $category = $this->category->select("*");
+          $listBanners = $this->banner->getAllBanner();
+          // var_dump($listBanners); die;
+          $listProduct = $this->product->getAllProduct();
+          
+          $title = "Trang chủ";
+          $content = "client/HomeClient";
+          $layoutPath = "client_layout";
+          $this->renderView($layoutPath, $content, ["title" => $title, "content" => $content, "category" => $category, "listBanners" => $listBanners, "listProduct" => $listProduct]);
+     }
 }
