@@ -70,7 +70,6 @@ class BannerModel extends Model
                 return false;
             }
         } catch (PDOException $e) {
-            // Xử lý lỗi
             echo "Lỗi khi cập nhật banner: " . $e->getMessage();
             return false;
         }

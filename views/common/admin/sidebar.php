@@ -47,6 +47,20 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBanner"
+                    aria-expanded="true" aria-controls="collapseBanner">
+                    <i class="fas fa-fw fa-images"></i>
+                    <span>Quản lý banner</span>
+                </a>
+                <div id="collapseBanner" class="collapse" aria-labelledby="headingBanner" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="?role=admin&controller=banner">Danh sách banner</a>
+                        <a class="collapse-item" href="?role=admin&controller=banner&action=add">Thêm banner</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTw"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -103,8 +117,6 @@
                         <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
-            </li>
-            <li><a href="?role=admin&controller=banner" class="nav-link"><i class="fa fa-tachometer-alt me-2"></i>Banner</a>
             </li>
 
             <!-- Divider -->
