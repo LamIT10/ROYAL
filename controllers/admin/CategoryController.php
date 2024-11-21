@@ -49,9 +49,6 @@ class CategoryController extends Controller
                 }
             }
             if ($data['banner']['size'] > 0) {
-<<<<<<< HEAD
-                if ($data['banner']['size'] > 2 * 1024 * 1024);
-=======
                 if ($data['banner']['size'] > 2 * 1024 * 1024) {
                     $_SESSION['error']['banner'] = "Dung lượng hình ảnh phải nhỏ hơn 2MB";
                 }
@@ -79,7 +76,6 @@ class CategoryController extends Controller
                 header("location:?role=admin&controller=category");
             } else {
                 throw new Exception("Không thêm được");
->>>>>>> 8725ee8b91f874f3b6c8a2deae251df27d042984
             }
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
