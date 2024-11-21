@@ -57,7 +57,8 @@
                         <input type="file" class="form-control" name='banner_link' id="banner_link">
                     </div>
                     <div class="mb-3">
-
+                        <label for="count">Count</label>
+                        <input type="number" class="form-control" value="<?= $bannerDetail['count'] ?>" name="count">
                     </div>
                     <!-- Nút Submit -->
                     <button type="submit" name="btn-edit-banner" class="btn btn-primary w-100">Edit Banner</button>
