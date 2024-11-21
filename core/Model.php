@@ -67,7 +67,7 @@ class Model extends Database
     $stmt->execute($param);
     return $stmt->rowCount();
   }
- 
+
 
   public function insert($data = [])
   {

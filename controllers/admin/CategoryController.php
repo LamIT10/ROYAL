@@ -58,7 +58,7 @@ class CategoryController extends Controller
                 }
             }
             if ($data['banner']['size'] > 0) {
-                if($data['banner']['size'] > 2* 1024 * 1024);
+                if ($data['banner']['size'] > 2 * 1024 * 1024);
             }
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;

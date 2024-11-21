@@ -47,10 +47,10 @@
         <div class="container mt-1">
             <div class="p-3 border">
                 <div class="table-title d-flex justify-content-between align-items-center">
-                    <h2>Manage <b>Categories</b></h2>
-                    <a href="?role=admin&controller=category&action=add">
+                    <h2>Manage <b>Banner</b></h2>
+                    <a href="?role=admin&controller=banner&action=add">
                         <button class="btn btn-success">
-                            <i class="fa fa-plus"></i> Add New Category
+                            <i class="fa fa-plus"></i> Add New Banner
                         </button>
                     </a>
                 </div>
@@ -58,42 +58,41 @@
                 <table class="table table-striped table-hover">
                     <thead class="table-primary">
                         <tr>
-                            <th>ID</th>
-                            <th>Category Name</th>
-                            <th>Parent Id</th>
+                            <th>STT</th>
+                            <th>Banner_link</th>
+                            <th>Create_at</th>
+                            <th>Update_at</th>
                             <th>Status</th>
-
-                            <th>Banner</th>
-                            <th>Actions</th>
+                            <th>Count</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($category as $key => $item) : ?>
+                        <?php foreach ($banner as $key => $item) : ?>
 
                             <tr>
-                                <td><?= $key + 1 ?></td>
-                                <td><?= $item['category_name'] ?></td>
-                                <td><?= $item['parent_id'] ? $item['parent_id'] : 'Root' ?></td>
-
+                                <td><?= $key + 1 ?> </td>
+                                <td><img src="uploads/<?= $item['banner_link'] ?>" alt="Banner" width="80px"></td>
+                                <td><?= $item['create_at'] ?></td>
+                                <td><?= $item['update_at'] ?></td>
                                 <td><?= $item['status'] == 1 ? 'Active' : 'Inactive' ?> </td>
-                                <td><img src="uploads/<?= $item['banner'] ?>" alt="Banner" width="80"></td>
+                                <td><?= $item['count'] ?></td>
                                 <td class="action-btns">
-                                    <a href="?role=admin&controller=category&action=edit&id=<?= $item['category_id'] ?>">
+                                    <a href="?role=admin&controller=banner&action=edit&id=<?= $item['banner_id'] ?>">
                                         <button class="btn btn-info btn-sm">
                                             <i class="fa fa-pencil-alt"></i>
                                         </button>
                                     </a>
-                                    <a onclick="return confirm('Các danh mục con của danh mục này cũng sẽ bị xoá, bạn có chắc chắn không?')" href="?role=admin&controller=category&action=delete&id=<?= $item['category_id'] ?>">
+                                    <a onclick="return confirm('Bạn có muốn xóa banner không?')" href="?role=admin&controller=banner&action=delete&id=<?= $item['banner_id'] ?>">
                                         <button class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </a>
-                                    <a href="?role=admin&controller=category&action=show&id=<?= $item['category_id'] ?>">
+                                    <a href="?role=admin&controller=banner&action=show&id=<?= $item['banner_id'] ?>">
                                         <button class="btn btn-primary btn-sm">
                                             <i class="fa-solid fa-eye"></i>
                                         </button>
                                     </a>
-                                    <a href="?role=admin&controller=category&action=changeStatus&id=<?= $item['category_id'] ?>&status=<?= $item['status'] ?>">
+                                    <a href="?role=admin&controller=banner&action=changeStatus&id=<?= $item['banner_id'] ?>&status=<?= $item['status'] ?>">
                                         <button class="btn btn-secondary btn-sm">
                                             <i class="fa fa-ban"></i> <?php echo $item['status'] == 1 ? 'disable' : 'enable' ?>
                                         </button>
@@ -105,8 +104,9 @@
                 </table>
 
             </div>
-            <a href="?role=admin&controller=category&page=2">>></a>
+            <a href="?role=admin&controller=banner&page=2">>></a>
         </div>
+
 
 
 

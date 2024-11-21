@@ -158,5 +158,7 @@
             <li class="nav-item">
                 <a href="#" class="nav-link"><i class="fa fa-users me-2"></i>Customers</a>
             </li>
+            <li><a href="?role=admin&controller=banner" class="nav-link"><i class="fa fa-tachometer-alt me-2"></i>Banner</a>
+            </li>
         </ul>
     </nav>

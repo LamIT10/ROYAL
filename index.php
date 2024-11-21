@@ -3,7 +3,7 @@ session_start();
 
 require 'bootstrap.php';
 
-$role = $_GET['role'] ?? 'client';
+$role = $_GET['role'] ?? 'admin';
 
 
 
