@@ -55,10 +55,20 @@ class Model extends Database
     $stmt->execute($param);
     return $stmt->rowCount();
   }
-
-  public function changeStatus($conditional = null, $param = [])
+  public function delete2($table = null,$conditional = null, $param = [])
   {
-    $newStatus = $param["status"] == 1 ? 0 : 1;
+    $sql = "DELETE FROM $table";
+    if ($conditional) {
+      $sql .= " WHERE $conditional";
+    }
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute($param);
+    return $stmt->rowCount();
+  }
+
+  public function changeStatus($status,$conditional = null, $param = [])
+  {
+    $newStatus = $status == 1 ? 0 : 1;
     $sql = "UPDATE {$this->table} set status = $newStatus";
     if ($conditional) {
       $sql .= " WHERE $conditional";
@@ -81,6 +91,18 @@ class Model extends Database
     $stmt->execute($data);
     return $this->conn->lastInsertId();
   }
+  public function insert2($data = [], $table = null)
+  {
+    var_dump($data);
+    $columns = implode(',', array_keys($data));
+    // name, email
+    $placeholders = ':' . implode(', :', array_keys($data));
+    // :name, :email
+    $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute($data);
+    return $this->conn->lastInsertId();
+  }
 
   public function update($data = [], $conditional = null, $param = [])
   {
@@ -95,6 +117,7 @@ class Model extends Database
     if ($conditional) {
       $sql .= " WHERE $conditional";
     }
+    // echo $sql; die;
     $stmt = $this->conn->prepare($sql);
     foreach ($data as $key => &$value) {
       $stmt->bindParam(":set_$key", $value);

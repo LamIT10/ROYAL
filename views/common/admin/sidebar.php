@@ -1,164 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?></title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            overflow-x: hidden;
-        }
-
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            background-color: #FEEBD0;
-            border-right: 1px solid #ddd;
-            padding-top: 20px;
-        }
-
-        .sidebar .nav-link {
-            color: #333;
-            font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: all 0.2s;
-        }
-
-        .sidebar .nav-link:hover,
-        .sidebar .nav-link.active {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-
-        .header {
-            position: fixed;
-            width: calc(100% - 250px);
-            left: 250px;
-            top: 0;
-            height: 60px;
-            background-color: #fff;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            z-index: 1000;
-        }
-
-        .header h1 {
-            font-size: 20px;
-            margin: 0;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .content-wrapper {
-            padding-top: 80px;
-            /* Để tránh bị che bởi header */
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            border-radius: 5px;
-            z-index: 1000;
-            background-color: #ffffff;
-            overflow: hidden;
-            animation: slideInOut 7s ease-out forwards;
-        }
-
-        @keyframes slideInOut {
-            0% {
-                opacity: 1;
-                transform: translateX(100%);
+        <style>
+            .sidebar {
+                transition: 0.5s;
+                background-size: contain;
             }
+        </style>
+        <ul class="navbar-nav sidebar bg-gradient-primary sidebar-dark accordion" id="accordionSidebar">
 
-            5% {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    r
+                </div>
+                <div class="sidebar-brand-text mx-3">ROYAL</div>
+            </a>
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
-            70% {
-                opacity: 1;
-                transform: translateX(0);
-            }
 
-            100% {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-        }
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-        .fa-circle-check,
-        .fa-triangle-exclamation {
-            margin-right: 15px;
-            font-size: 25px;
-            border-radius: 3px;
-            padding: 5px 7px;
-        }
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="?role=admin">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
 
-        .fa-circle-check {
-            color: green;
-            background-color: #d1ffdb;
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-        }
 
-        .fa-triangle-exclamation {
-            color: red;
-            background-color: #ffdede;
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- Sidebar -->
-    <nav class="sidebar d-flex flex-column p-3">
-        <h2 class="mb-4 d-flex align-items-center justify-content-center">
-            ROYAL
-        </h2>
-        <ul class="nav flex-column gap-2">
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a href="?role=admin" class="nav-link"><i class="fa fa-home me-2"></i>Home</a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Quản lý danh mục</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="?role=admin&controller=category">Danh sách danh mục</a>
+                        <a class="collapse-item" href="?role=admin&controller=category&action=add">Thêm danh mục</a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
-                <a href="?role=admin&controller=category" class="nav-link"><i class="fa fa-tachometer-alt me-2"></i>Manage Category</a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTw"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Quản lý sản phẩm</span>
+                </a>
+                <div id="collapseTw" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="?role=admin&controller=product">Danh sách sản phẩm</a>
+                        <a class="collapse-item" href="?role=admin&controller=product&action=add">Thêm sản phẩm</a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link"><i class="fa fa-shopping-cart me-2"></i>Orders</a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseT"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Quản lý người dùng</span>
+                </a>
+                <div id="collapseT" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="?role=admin&controller=user&view=customer">Danh sách khách hàng</a>
+                        <a class="collapse-item" href="?role=admin&controller=user&view=admin">Danh sách quản trị viên</a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link"><i class="fa fa-box me-2"></i>Products</a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Quản lý voucher</span>
+                </a>
+                <div id="collapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="?role=admin&controller=voucher">Danh sách voucher</a>
+                        <a class="collapse-item" href="?role=admin&controller=voucher&action=add">Thêm voucher</a>
+                    </div>
+                </div>
             </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a href="#" class="nav-link"><i class="fa fa-users me-2"></i>Customers</a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Utilities</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                    </div>
+                </div>
             </li>
+<<<<<<< HEAD
             <li><a href="?role=admin&controller=banner" class="nav-link"><i class="fa fa-tachometer-alt me-2"></i>Banner</a>
             </li>
+=======
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Addons
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pages</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="login.html">Login</a>
+                        <a class="collapse-item" href="register.html">Register</a>
+                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="404.html">404 Page</a>
+                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tables</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+
+
+
+>>>>>>> 8725ee8b91f874f3b6c8a2deae251df27d042984
         </ul>
-    </nav>
+        <!-- End of Sidebar -->

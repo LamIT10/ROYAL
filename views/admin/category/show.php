@@ -35,13 +35,14 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Trạng thái:</label>
-                            <input type="text" class="form-control <?php echo $category['status'] ? 'text-success' : 'text-danger'; ?>" value="Hoạt động" readonly>
+                            <input type="text" class="form-control <?php echo $category['status'] ? 'text-success' : 'text-danger'; ?>" value="<?php echo $category['status'] ? 'Active' : 'Inactive'; ?>" readonly>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Banner:</label>
                             <div class="d-flex align-items-center">
-                                <img src="uploads/nen1.jpg" alt="Banner" class="img-thumbnail me-2" style="width: 100px; height: 100px; object-fit: cover;">
-                                <span>nen1.jpg</span>
+                                <span><?php
+                                        echo ($category['banner']) ? " <img src='uploads/" . $category['banner'] . "' width='300px'>" : 'Empty';
+                                        ?></span>
                             </div>
                         </div>
                     </div>
