@@ -218,7 +218,7 @@ class ProductController extends Controller
             if ($dataPost['sale_price'] > $dataPost['base_price']) {
                 $_SESSION['error']['sale_price'] = "Giá khuyến mãi phải nhỏ hơn hoặc bằng giá gốc";
             }
-            if (empty($dataPost['variant_main'])) {
+            if (!isset($dataPost['variant_main'])) {
                 $_SESSION['error']['variant_main'] = "Bạn chưa xác nhận biến thể chính";
             }
             $uniqueMain = $this->variant->select("*", "variant_main = 1 and product_id = :product_id", ['product_id' => $_GET['id']]);
@@ -248,7 +248,7 @@ class ProductController extends Controller
                     $_SESSION['error']['image_main'] = "Dung lượng hình ảnh phải nhỏ hơn 2MB";
                 }
                 $typeFile = $dataFile['image_main']['type'];
-                $allowType = array("image/jpeg", "image/png", "image/gif", "image/jpg");
+                $allowType = array("image/jpeg", "image/png", "image/gif", "image/jpg", "image/webp");
                 if (!in_array($typeFile, $allowType)) {
                     $_SESSION['error']['image_main'] = "Chọn lại dạng hình ảnh phù hợp, cho phép jpeg, png, gif, jpg, webp";
                 }
@@ -258,10 +258,10 @@ class ProductController extends Controller
             } else {
                 for ($i = 0; $i < count($dataFile['image']['name']); $i++) {
                     if ($dataFile['image']['size'][$i] > 2 * 1024 * 1024) {
-                        $_SESSION['error']['image'] = "Dung lượng 3 hình ảnh phải nhỏ hơn 2MB";
+                        $_SESSION['error']['image'] = "Dung lượng mỗi hình ảnh phải nhỏ hơn 2MB";
                     }
                     $typeFile = $dataFile['image']['type'][$i];
-                    $allowType = array("image/jpeg", "image/png", "image/gif", "image/jpg");
+                    $allowType = array("image/jpeg", "image/png", "image/gif", "image/jpg", "image/webp");
                     if (!in_array($typeFile, $allowType)) {
                         $_SESSION['error']['image'] = "Chọn lại dạng hình ảnh phù hợp, cho phép jpeg, png, gif, jpg, webp";
                     }

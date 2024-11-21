@@ -10,18 +10,19 @@ class ProductdetailController extends Controller
         $this->loadModel("CategoryModel");
         $this->category = new CategoryModel;
     }
-    // public function index()
-    // {
-    //     $productDetail = $this->product->getProductDetail($_GET['id'], $_GET['colorId'], $_GET['sizeId']);
-    //     if(empty($productDetail['image'])){
-    //          $productDetail['image'] = $productDetail['colorImage'];
-    //         var_dump($productDetail['image']);
-    //     }
-        
-    //     $category = $this->category->getAllCategory();
-    //     $title = "Trang chi tiết sản phẩm";
-    //     $content = "client/ProductDetailClient";
-    //     $layoutPath = "client_layout";
-    //     $this->renderView($layoutPath, $content, ["productDetail" => $productDetail, "category" => $category]);
-    // }
+    public function index()
+    {
+        $id = $_GET['id'];
+        $colorId = $_GET['colorId'];
+        $sizeId = $_GET['sizeId'];
+        $viewOfProduct = $this->product->selectOne("product_view", "product_id = :id", ["id" => $id]);
+        $view =  $viewOfProduct['product_view'];
+        $this->product->update(['product_view' => $view + 1], "product_id = :id", ["id" => $id]);
+        $productDetail = $this->product->getProductDetail($id, $colorId, $sizeId);
+        $category = $this->category->getAllCategory();
+        $title = "Trang chi tiết sản phẩm";
+        $content = "client/ProductDetailClient";
+        $layoutPath = "client_layout";
+        $this->renderView($layoutPath, $content, ["productDetail" => $productDetail, "category" => $category]);
+    }
 }

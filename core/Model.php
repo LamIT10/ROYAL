@@ -55,7 +55,7 @@ class Model extends Database
     $stmt->execute($param);
     return $stmt->rowCount();
   }
-  public function delete2($table = null,$conditional = null, $param = [])
+  public function delete2($table = null, $conditional = null, $param = [])
   {
     $sql = "DELETE FROM $table";
     if ($conditional) {
@@ -66,7 +66,7 @@ class Model extends Database
     return $stmt->rowCount();
   }
 
-  public function changeStatus($status,$conditional = null, $param = [])
+  public function changeStatus($status, $conditional = null, $param = [])
   {
     $newStatus = $status == 1 ? 0 : 1;
     $sql = "UPDATE {$this->table} set status = $newStatus";
@@ -81,7 +81,6 @@ class Model extends Database
 
   public function insert($data = [])
   {
-    var_dump($data);
     $columns = implode(',', array_keys($data));
     // name, email
     $placeholders = ':' . implode(', :', array_keys($data));
@@ -117,7 +116,6 @@ class Model extends Database
     if ($conditional) {
       $sql .= " WHERE $conditional";
     }
-    // echo $sql; die;
     $stmt = $this->conn->prepare($sql);
     foreach ($data as $key => &$value) {
       $stmt->bindParam(":set_$key", $value);
@@ -127,5 +125,12 @@ class Model extends Database
     }
     $stmt->execute();
     return $stmt->rowCount();
+  }
+  public function selectAll($sql, $param = [])
+  {
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute($param);
+    $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $list;
   }
 }

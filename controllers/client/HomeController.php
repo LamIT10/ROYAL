@@ -17,12 +17,10 @@ class HomeController extends Controller
      {
           $category = $this->category->select("*");
           $listBanners = $this->banner->getAllBanner();
-          // var_dump($listBanners); die;
-          $listProduct = $this->product->getAllProduct();
-          
+          $listView = $this->product->getProductFilterByView();
           $title = "Trang chủ";
           $content = "client/HomeClient";
           $layoutPath = "client_layout";
-          $this->renderView($layoutPath, $content, ["title" => $title, "content" => $content, "category" => $category, "listBanners" => $listBanners, "listProduct" => $listProduct]);
+          $this->renderView($layoutPath, $content, ["title" => $title, "content" => $content, "category" => $category, "listBanners" => $listBanners, "listView" => $listView]);
      }
 }

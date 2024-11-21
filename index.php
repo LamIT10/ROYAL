@@ -3,9 +3,7 @@ session_start();
 
 require 'bootstrap.php';
 
-$role = $_GET['role'] ?? 'admin';
-
-
+$role = $_GET['role'] ?? 'client';
 
 $controllerName = ucfirst(strtolower($_GET['controller'] ?? 'home')) . "Controller";
 

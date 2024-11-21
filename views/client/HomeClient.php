@@ -28,25 +28,50 @@
              <span class="visually-hidden">Next</span>
          </button>
      </div>
+     <?php
+        // var_dump($listView);
+        ?>
      <div class="container">
-         <?php
-            foreach ($listProduct as $key => $value):
-                echo $value['color_id'];
-            ?>
-             <div class="" style="width: 16rem">
-                 <a href="?controller=productdetail&id=<?= $value["product_id"] ?>&colorId=<?= $value["color_id"] ?>&sizeId=<?= $value["size_id"] ?>">
-                     <img src="uploads/<?= $value['image_link'] ?>" class="card-img-top" alt="...">
-                     <div class="">
-                         <div class="card-text"><?= $value['product_name'] ?></div>
-                         <div class="card-text fw-bold"><?= number_format($value['base_price']) ?> VNĐ</div>
-                         <div class="decoration-line"><?= number_format($value['sale_price']) ?> VNĐ</div>
-                     </div>
-                 </a>
-             </div>
-         <?php
-            endforeach;
-            ?>
+         <div class="row g-5">
+             <?php
+                foreach ($listView as $key => $value):
+                ?>
+                 <div class="col-md-3">
+                     <a href="#">
+                         <div class="position-relative">
+                             <img src="uploads/<?= $value['image'] ?>" class="card-img-top" alt="Product Image">
+                         </div>
+                         <div class="card-body mt-3">
+                             <h6 class="card-title fw-normal"><?= $value['product_name'] ?></h6>
+                             <div class="fw-bold my-1 fs-5"><?= number_format($value['sale_price']) ?> VNĐ</div>
+                             <div class="text-muted text-decoration-line-through"><?= number_format($value['base_price']) ?> VNĐ</div>
+                         </div>
+                     </a>
+                 </div>
+             <?php
+                endforeach;
+                ?>
+             <?php
+                foreach ($listView as $key => $value):
+                ?>
+                 <div class="col-md-3">
+                     <a href="?controller=productdetail&id=<?= $value['product_id'] ?>&colorId=<?= $value['color_id'] ?>&sizeId=<?= $value['size_id'] ?>">
+                         <div class="position-relative">
+                             <img src="uploads/<?= $value['image'] ?>" class="card-img-top" alt="Product Image">
+                         </div>
+                         <div class="card-body mt-3">
+                             <h6 class="card-title fw-normal"><?= $value['product_name'] ?></h6>
+                             <div class="fw-bold my-1 fs-5"><?= number_format($value['sale_price']) ?> VNĐ</div>
+                             <div class="text-muted text-decoration-line-through"><?= number_format($value['base_price']) ?> VNĐ</div>
+                         </div>
+                     </a>
+                 </div>
+             <?php
+                endforeach;
+                ?>
+         </div>
      </div>
+
      <style>
          .decoration-line {
              text-decoration: line-through;

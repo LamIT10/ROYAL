@@ -16,6 +16,11 @@
             display: block;
             margin-top: 0;
         }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
     </style>
 </head>
 
@@ -77,10 +82,25 @@
                         <i class="bi bi-shop fs-6"></i>
                         <small style="font-size: 13px">Cửa hàng</small>
                     </a>
-                    <a href="#" class="text-dark text-decoration-none me-4 d-flex flex-column align-items-center">
-                        <i class="bi bi-person-circle fs-6"></i>
-                        <small style="font-size: 13px">Tài khoản</small>
-                    </a>
+                    <?php
+                    // var_dump($_SESSION['user']);
+                    if (isset($_SESSION['user'])) {
+                    ?>
+                        <a href="#" class="text-dark text-decoration-none me-4 d-flex flex-column align-items-center">
+                            <i class="bi bi-person-circle fs-6"></i>
+                            <small style="font-size: 13px">Tài khoản</small>
+                        </a>
+                    <?php
+                    } else {
+                    ?>
+                        <button class="btn btn-primary me-4">
+                            <a href="?controller=login" class="text-light">
+                                <small style="font-size: 13px">Đăng nhập</small>
+                            </a>
+                        </button>
+                    <?php
+                    }
+                    ?>
                     <a href="#" class="text-dark text-decoration-none position-relative d-flex flex-column align-items-center">
                         <i class="bi bi-bag fs-6"></i>
                         <small style="font-size: 13px">Giỏ hàng</small>

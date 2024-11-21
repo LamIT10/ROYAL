@@ -4,11 +4,8 @@ class BannerModel extends Model
     public $table = "banners";
     public function getAllBanner()
     {
-        // $sql = "SELECT * FROM banners where status = 1 order by count";
-        // $listBanner = $this->select("*");
-        // return $listBanner;
         try {
-            $list = $this->select("*", "status=:status", ["status" => 1]);
+            $list = $this->select("*", "status=:status order by count", ["status" => 1]);
             return $list;
         } catch (\Throwable $th) {
             //throw $th;
@@ -27,7 +24,6 @@ class BannerModel extends Model
     {
         try {
             $this->insert($data);
-            die;
         } catch (\Throwable $th) {
             throw $th;
         }
