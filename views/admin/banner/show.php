@@ -9,7 +9,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
 
-                            <label class="form-label">ID danh mục:</label>
+                            <label class="form-label">ID Banner:</label>
                             <input type="text" class="form-control" value="<?php echo $banner['banner_id']; ?>" readonly>
                         </div>
                         <div class="col-md-6">

@@ -49,16 +49,16 @@
 
                     <div class="mb-3">
                         <label for="BannerName" class="form-label">Banner_id</label>
-                        <input value="<?php echo $bannerDetail['banner_id']; ?>" type="text" class="form-control" id="banner_id" placeholder="Enter Banner name" name="banner_id" readonly>
+                        <input value="<?= $bannerDetail['banner_id']; ?>" type="text" class="form-control" id="banner_id" placeholder="Enter Banner name" name="banner_id" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="banner" class="form-label">Banner Image URL</label>
-                        <img width="100px" src="uploads/<?php echo $bannerDetail['banner_link']; ?>" alt="">
+                        <img width="100px" src="uploads/<?= $bannerDetail['banner_link']; ?>" alt="">
                         <input type="file" class="form-control" name='banner_link' id="banner_link">
                     </div>
                     <div class="mb-3">
                         <label for="count">Count</label>
-                        <input type="number" class="form-control" value="<?= $bannerDetail['count'] ?>" name="count">
+                        <input type="number" class="form-control" name="count" id="count" value="<?= $bannerDetail['count'] ?>">
                     </div>
                     <!-- Nút Submit -->
                     <button type="submit" name="btn-edit-banner" class="btn btn-primary w-100">Edit Banner</button>
