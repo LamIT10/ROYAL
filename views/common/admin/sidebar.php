@@ -104,10 +104,8 @@
                     </div>
                 </div>
             </li>
-<<<<<<< HEAD
             <li><a href="?role=admin&controller=banner" class="nav-link"><i class="fa fa-tachometer-alt me-2"></i>Banner</a>
             </li>
-=======
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -159,6 +157,5 @@
 
 
 
->>>>>>> 8725ee8b91f874f3b6c8a2deae251df27d042984
         </ul>
         <!-- End of Sidebar -->

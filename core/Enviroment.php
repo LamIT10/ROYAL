@@ -4,4 +4,4 @@ const MODEL_FOLDER = 'models/';
 const HOST = 'localhost';
 const USERNAME = 'root';
 const PASSWORD = '';
-const DB_NAME = 'royal';
+const DB_NAME = 'royal2';

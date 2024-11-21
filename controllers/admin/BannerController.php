@@ -77,28 +77,35 @@ class BannerController extends Controller
 
             $banner_id = $_POST['banner_id'];
             $new_banner_link = $_FILES['banner_link'];
+            $count = $_POST['count'];
 
-            if ($new_banner_link['error'] === UPLOAD_ERR_NO_FILE) {
-                throw new Exception('Không có file nào được tải lên');
-            }
-            if ($new_banner_link['error'] !== UPLOAD_ERR_OK) {
-                throw new Exception('Đã xảy ra lỗi khi tải lên file');
+            $data = []; // Khởi tạo mảng lưu dữ liệu cần cập nhật
+
+            // Kiểm tra và xử lý ảnh nếu người dùng upload ảnh mới
+            if ($new_banner_link['error'] !== UPLOAD_ERR_NO_FILE) {
+                if ($new_banner_link['error'] !== UPLOAD_ERR_OK) {
+                    throw new Exception('Đã xảy ra lỗi khi tải lên file');
+                }
+                if ($new_banner_link['size'] > 5 * 1024 * 1024) {
+                    throw new Exception('File vượt quá dung lượng cho phép 5MB');
+                }
+                $fileName = time() . '_' . basename($new_banner_link['name']);
+                if (!move_uploaded_file($new_banner_link['tmp_name'], 'uploads/' . $fileName)) {
+                    throw new Exception('Không thể lưu file banner mới');
+                }
+                $data['banner_link'] = $fileName;
             }
 
-            if ($new_banner_link['size'] > 5 * 1024 * 1024) {
-                throw new Exception('File vượt quá dung lượng cho phép 5MB');
+            if (isset($count) && is_numeric($count)) {
+                $data['count'] = (int)$count;
             }
-            $fileName = time() . '_' . basename($new_banner_link['name']);
-            if (!move_uploaded_file($new_banner_link['tmp_name'], 'uploads/' . $fileName)) {
-                throw new Exception('Không thể lưu file banner mới');
+            if (!empty($data)) {
+                $this->banner->update($data, "banner_id = :id", ["id" => $banner_id]);
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = 'Cập nhật banner thành công';
+            } else {
+                throw new Exception('Không có thay đổi nào được thực hiện');
             }
-            $data = [
-                'banner_link' => $fileName
-            ];
-            $this->banner->update($data, "banner_id = :id", ["id" => $banner_id]);
-
-            $_SESSION['success'] = true;
-            $_SESSION['message'] = 'Cập nhật banner thành công';
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['message'] = $th->getMessage();
@@ -106,6 +113,7 @@ class BannerController extends Controller
         header("Location: ?role=admin&controller=banner");
         exit();
     }
+
     public function delete()
     {
         try {
