@@ -55,7 +55,7 @@ class Model extends Database
     $stmt->execute($param);
     return $stmt->rowCount();
   }
-  public function delete2($table = null,$conditional = null, $param = [])
+  public function delete2($table = null, $conditional = null, $param = [])
   {
     $sql = "DELETE FROM $table";
     if ($conditional) {
@@ -66,7 +66,7 @@ class Model extends Database
     return $stmt->rowCount();
   }
 
-  public function changeStatus($status,$conditional = null, $param = [])
+  public function changeStatus($status, $conditional = null, $param = [])
   {
     $newStatus = $status == 1 ? 0 : 1;
     $sql = "UPDATE {$this->table} set status = $newStatus";

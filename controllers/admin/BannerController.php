@@ -34,7 +34,7 @@ class BannerController extends Controller
             }
 
             $banner_link = $_FILES['banner_link'];
-            $fileName = time() . '_' . basename($banner_link['name']);
+            $fileName = basename($banner_link['name']);
             if ($banner_link['size'] > 2 * 1024 * 1024) {
                 $error = 'File lớn hơn 2MB';
             }
@@ -77,7 +77,7 @@ class BannerController extends Controller
 
             $banner_id = $_POST['banner_id'];
             $new_banner_link = $_FILES['banner_link'];
-            $count = $_POST['count'];
+            $count = isset($_POST['count']) ? $_POST['count'] : null;
             $data = [];
 
             if ($new_banner_link['error'] !== UPLOAD_ERR_NO_FILE) {
@@ -87,15 +87,22 @@ class BannerController extends Controller
                 if ($new_banner_link['size'] > 5 * 1024 * 1024) {
                     throw new Exception('File vượt quá dung lượng cho phép 5MB');
                 }
-                $fileName = time() . '_' . basename($new_banner_link['name']);
+                $fileName = basename($new_banner_link['name']);
                 if (!move_uploaded_file($new_banner_link['tmp_name'], 'uploads/' . $fileName)) {
                     throw new Exception('Không thể lưu file banner mới');
                 }
-
                 $data['banner_link'] = $fileName;
             }
             if (isset($count) && is_numeric($count)) {
-                $data['count'] = (int)$count;
+
+                $currentCount = $this->banner->getOneBanner(["banner_id" => $banner_id])['count'] ?? null;
+
+                if ((int)$count === (int)$currentCount + 1) {
+
+                    $data['count'] = (int)$count;
+                } else {
+                    throw new Exception('Count phải là số kế tiếp');
+                } //đang kẹt thông báo 
             }
             if (!empty($data)) {
                 $this->banner->update($data, "banner_id = :id", ["id" => $banner_id]);
