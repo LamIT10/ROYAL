@@ -32,7 +32,6 @@ class BannerController extends Controller
             if (!isset($_FILES['banner_link']) || $_FILES['banner_link']['error'] !== UPLOAD_ERR_OK) {
                 throw new Exception('File banner không hợp lệ hoặc không được tải lên');
             }
-
             $banner_link = $_FILES['banner_link'];
             $fileName = basename($banner_link['name']);
             if ($banner_link['size'] > 2 * 1024 * 1024) {
@@ -54,6 +53,8 @@ class BannerController extends Controller
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['message'] = $th->getMessage();
+            header("Location: ?role=admin&controller=banner&action=add");
+            exit();
         }
         header("Location: ?role=admin&controller=banner");
         exit();
@@ -61,12 +62,13 @@ class BannerController extends Controller
     public function edit()
     {
         $id = $_GET['id'];
+        $listCount = $this->banner->select("count");
         $banner = $this->banner->getAllBanner();
         $bannerDetail = $this->banner->getOneBanner($id);
         $title = "Sửa banner";
         $content = "admin/banner/edit";
         $layoutPath = "admin_layout";
-        $this->renderView($layoutPath, $content, ["title" => $title, "banner" => $banner, "bannerDetail" => $bannerDetail]);
+        $this->renderView($layoutPath, $content, ["title" => $title, "banner" => $banner, "bannerDetail" => $bannerDetail, "listCount" => $listCount]);
     }
     public function update()
     {
@@ -93,19 +95,14 @@ class BannerController extends Controller
                 }
                 $data['banner_link'] = $fileName;
             }
-            if (isset($count) && is_numeric($count)) {
-
-                $currentCount = $this->banner->getOneBanner(["banner_id" => $banner_id])['count'] ?? null;
-
-                if ((int)$count === (int)$currentCount + 1) {
-
-                    $data['count'] = (int)$count;
-                } else {
-                    throw new Exception('Count phải là số kế tiếp');
-                } //đang kẹt thông báo 
-            }
+            $count = $this->banner->selectOne('*', 'count = :count', ['count' => $_POST['count']]); // id2 count2
+            $countEdit = $this->banner->selectOne('*', 'banner_id = :banner_id', ['banner_id' => $banner_id]);
+            $idCountOld = $count['banner_id'];
+            $this->banner->update(['count' => 100], 'banner_id = :id', ['id' => $idCountOld]); // gán count cũ giá trị 100 tránh lỗi unique
+            $data['count'] = $_POST['count'];
             if (!empty($data)) {
-                $this->banner->update($data, "banner_id = :id", ["id" => $banner_id]);
+                $this->banner->update($data, "banner_id = :id", ["id" => $banner_id]); // update count từ post cho banner đang edit
+                $this->banner->update(['count' => $countEdit['count']], 'banner_id = :id', ['id' => $idCountOld]);
                 $_SESSION['success'] = true;
                 $_SESSION['message'] = 'Cập nhật banner thành công';
             } else {
@@ -130,7 +127,10 @@ class BannerController extends Controller
             if (empty($baner)) {
                 throw new Exception("Không tìm thấy banner có ID $id", 401);
             }
+            $countWasDelete = $this->banner->selectOne("*", "banner_id = :banner_id", ["banner_id" => $id])['count'];
+            // echo $countWasDelete['count']; die;
             $this->banner->deleteBanner($id);
+            $row = $this->banner->updateCountDelete($countWasDelete);
             $_SESSION['success'] = true;
             $_SESSION['message'] = "Xoá thành công";
         } catch (\Throwable $th) {
@@ -138,38 +138,5 @@ class BannerController extends Controller
             $_SESSION['message'] = $th->getMessage();
         }
         header("location:?role=admin&controller=banner");
-    }
-    public function show()
-    {
-        try {
-            if (!isset($_GET['id'])) {
-                throw new Exception("URL thiếu tham số ID", 400);
-            }
-            $id = $_GET['id'];
-            $baner = $this->banner->selectOne("*", "banner_id=:id", ["id" => $id]);
-            if (empty($baner)) {
-                throw new Exception("Không tìm thấy ID $id", 401);
-            }
-            $banner = $this->banner->getOneBanner($id);
-            $title = "Chi tiết banner";
-            $content = "admin/banner/show";
-            $layoutPath = "admin_layout";
-            $this->renderView($layoutPath, $content, ["title" => $title, "banner" => $banner]);
-        } catch (\Throwable $th) {
-            $_SESSION['success'] = false;
-            $_SESSION['message'] = $th->getMessage();
-            header("location:?role=admin&controller=banner");
-        }
-    }
-    public function changeStatus()
-    {
-        try {
-            $id = $_GET['banner_id'];
-            $status = $_GET['status'];
-            $this->banner->changeStatuss($id, $status);
-            echo "Vào controller";
-        } catch (\Throwable $th) {
-            // echo "$th";
-        }
     }
 }

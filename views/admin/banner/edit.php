@@ -20,6 +20,8 @@
         text-align: center;
     }
 </style>
+<?php
+?>
 <div class="main-content">
     <div class="content-wrapper">
         <?php
@@ -58,7 +60,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="count">Count</label>
-                        <input type="number" class="form-control" name="count" id="count" value="<?= $bannerDetail['count'] ?>">
+                        <select name="count" id="count">
+                            <?php
+                            foreach ($listCount as $key => $value) {
+                            ?>
+                                <option <?php echo $value['count'] == $bannerDetail['count'] ? "selected" : "" ?> value="<?= $value['count'] ?>"><?= $value['count'] ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
                     </div>
                     <!-- Nút Submit -->
                     <button type="submit" name="btn-edit-banner" class="btn btn-primary w-100">Edit Banner</button>

@@ -74,12 +74,12 @@ class BannerModel extends Model
     {
         $this->delete("banner_id =:banner_id", ["banner_id" => $id]);
     }
-    public function changeStatuss($id, $status)
+
+    public function updateCountDelete($countWasDelete)
     {
-        try {
-            $this->changeStatus("banner_id = :banner_id AND status = :status", ["banner_id" => $id, "status" => $status]);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        $sql = "UPDATE banners set count = count -1 WHERE count > $countWasDelete";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
     }
 }

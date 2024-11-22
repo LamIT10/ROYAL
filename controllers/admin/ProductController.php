@@ -274,6 +274,7 @@ class ProductController extends Controller
             } else {
                 move_uploaded_file($_FILES['image_main']['tmp_name'], "uploads/" . $_FILES['image_main']['name']);
                 $dataPost['image_main'] = $_FILES['image_main']['name'];
+                
                 $variantIdNew = $this->variant->insert($dataPost);
                 $imageLenght = count($_FILES['image']['name']);
                 for ($i = 0; $i < $imageLenght; $i++) {
@@ -281,7 +282,6 @@ class ProductController extends Controller
                     $imageNew = $_FILES['image']['name'][$i];
                     $imageIdNew[] = $this->variant->insert2(['image_link' => $imageNew], "images");
                 }
-
                 $countImage = count($imageIdNew);
                 for ($i = 0; $i < $countImage; $i++) {
                     $this->variant->insert2(['variant_id' => $variantIdNew, 'image_id' => $imageIdNew[$i]], "image_variant");
