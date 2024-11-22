@@ -243,7 +243,7 @@ class CategoryController extends Controller
                 throw new Exception("Không tìm thấy danh mục có ID $id");
             }
             $parentId = $this->category->selectOne("parent_id", "category_id = :id", ["id" => $id]);
-            $rowCount = $this->category->changeStatuss($parentId["parent_id"], $status,$id);
+            $rowCount = $this->category->changeStatuss($parentId["parent_id"], $status, $id);
             if ($rowCount > 0) {
                 $_SESSION['success'] = true;
                 $_SESSION['message'] = "Thay đổi trạng thái thành công";
