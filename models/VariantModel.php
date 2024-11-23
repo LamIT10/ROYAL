@@ -58,4 +58,20 @@ GROUP BY
         $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $list;
     }
+    public function getVariant($id)
+    {
+        $sql = "SELECT * from variants a inner join products b on a.product_id = b.product_id where a.variant_id = $id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $list = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $list;
+    }
+    public function isInCartDetail($id,$cart_id)
+    {
+        $sql = "SELECT * from cart_details where variant_id = $id and cart_id = $cart_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $list;
+    }
 }
