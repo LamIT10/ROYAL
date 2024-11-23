@@ -11,6 +11,7 @@
     <link
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
         rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .dropdown:hover .dropdown-menu {
             display: block;
@@ -21,11 +22,18 @@
             text-decoration: none;
             color: black;
         }
+        .card{
+          border: none;
+          border-radius: 0px;
+        }
     </style>
+    
 </head>
 
-<body>
-    <header class="border-bottom">
+<body style="background-color: 
+#F2F5F8
+;">
+    <header class="border-bottom bg-white">
         <div class="bg-dark text-warning py-2 text-center fs-6 fw-semibold">
             <span>ĐỔI HÀNG MIỄN PHÍ - TẠI TẤT CẢ CỬA HÀNG TRONG 30 NGÀY</span>
         </div>
@@ -86,10 +94,17 @@
                     // var_dump($_SESSION['user']);
                     if (isset($_SESSION['user'])) {
                     ?>
-                        <a href="#" class="text-dark text-decoration-none me-4 d-flex flex-column align-items-center">
-                            <i class="bi bi-person-circle fs-6"></i>
-                            <small style="font-size: 13px">Tài khoản</small>
-                        </a>
+
+                        <div class="dropdown">
+                            <div class="me-2 btn btn-light dropdown-toggle">
+                                <img src="uploads/<?= $_SESSION['user']['avatar'] ?>" alt="Avatar" class="rounded-circle" width="40" height="40">
+                            </div>
+
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Setting</a></li>
+                                <li><a class="dropdown-item" href="?controller=logout">Logout</a></li>
+                            </ul>
+                        </div>
                     <?php
                     } else {
                     ?>
@@ -101,7 +116,7 @@
                     <?php
                     }
                     ?>
-                    <a href="#" class="text-dark text-decoration-none position-relative d-flex flex-column align-items-center">
+                    <a href="?controller=cart" class="text-dark text-decoration-none position-relative d-flex flex-column align-items-center">
                         <i class="bi bi-bag fs-6"></i>
                         <small style="font-size: 13px">Giỏ hàng</small>
                         <span

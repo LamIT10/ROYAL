@@ -34,7 +34,7 @@ class LoginController extends Controller
             }
             $_SESSION['success'] = true;
             $_SESSION['message'] = "Đăng nhập thành công";
-            $_SESSION['user'] = $user;
+            $_SESSION['user'] = $user[0];
             header("Location:index.php");
             exit();
         } catch (\Throwable $th) {

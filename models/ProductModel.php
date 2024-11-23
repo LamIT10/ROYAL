@@ -39,8 +39,11 @@ class ProductModel extends Model
         $sql4 = "SELECT size_name, c.size_id from products a inner join variants b 
         on a.product_id = b.product_id inner join sizes c 
         on b.size_id = c.size_id where a.product_id=$id and b.color_id=$colorId";
+
         $list = $this->selectAll($sql);
+
         $addToCart = true;
+
         if (empty($list)) {
             $addToCart = false;
             $sql = "SELECT * from products a inner join variants b 
@@ -61,5 +64,4 @@ class ProductModel extends Model
         ];
         return $productDetail;
     }
-    public function getAllVariant($id) {}
 }
