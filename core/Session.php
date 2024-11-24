@@ -31,4 +31,10 @@ function getData($key)
         echo "value='" . $_SESSION['data'][$key] . "'";
     }
 }
+function showInforRecept($key)
+{
+    if (isset($_SESSION['inforUsedTo'])) {
+        return $_SESSION['inforUsedTo'][$key];
+    }
+}
 ?>

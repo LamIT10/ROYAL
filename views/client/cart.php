@@ -1,6 +1,6 @@
 <?php
 // var_dump($cart);
-// $_SESSION['cart'] = [];
+
 $total = 0;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // echo "<pre>";
@@ -97,14 +97,15 @@ var_dump($_SESSION['cart']);
                         <strong>
                             <?php
                             if ($total > 500000) {
-                                echo number_format($total - 20000) . " VNĐ";
+                                $totalFinal = $total - 20000;
+                                echo number_format($totalFinal) . " VNĐ";
                             } else {
                                 echo number_format($total) . " VNĐ";
                             }
                             ?>
                         </strong>
                     </div>
-                    <button  class="btn btn-warning w-100"><a href="?controller=checkout">Mua hàng <?= $count ?></a></button>
+                    <button class="btn btn-warning w-100"><a href="?controller=checkout">Mua hàng <?= $count ?></a></button>
                     <p class="mt-3 text-center">
                         <a href="#" class="text-primary">Chọn Voucher giảm giá ở bước tiếp theo</a>
                     </p>
