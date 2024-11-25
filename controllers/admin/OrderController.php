@@ -24,7 +24,11 @@ class OrderController extends Controller
         $status = $_GET['status'];
         // nếu $status = 2, là admin xác nhận giao hàng thành công
         if ($status == 2) {
-            
+            $list = $this->order->getOrderDetail($order_id); // lấy các chi tiết đơn hàng nhỏ của đơn hàng
+            // viết vòng for để handle xử lý cập nhật giá trị quantity của các variant có trong order details
+            foreach ($list as $key => $value) {
+                $this->variant->handleQuantityAfterSuccess($value['quantity'], $value['variant_id']);
+            }
             $row = $this->order->handleSuccessShipping($order_id);
         } else {
             $rowCount = $this->order->buttonChangeStatus($order_id, $status);
