@@ -44,6 +44,16 @@ class Model extends Database
     $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $list;
   }
+  public function find($columns = "*", $conditional = null, $param = [],$table=null){
+    $sql = "SELECT $columns FROM $table";
+    if ($conditional) {
+      $sql .= " WHERE $conditional";
+    }
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute($param);
+    $list = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $list;
+  }
 
   public function delete($conditional = null, $param = [])
   {

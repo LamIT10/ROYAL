@@ -105,7 +105,7 @@
                     <span>Quản lý bình luận</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="?role=admin&controller=order">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Quản lý đơn hàng</span></a>
             </li>

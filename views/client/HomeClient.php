@@ -37,24 +37,6 @@
                 foreach ($listView as $key => $value):
                 ?>
                  <div class="col-md-3">
-                     <a href="#">
-                         <div class="position-relative">
-                             <img src="uploads/<?= $value['image'] ?>" class="card-img-top" alt="Product Image">
-                         </div>
-                         <div class="card-body mt-3">
-                             <h6 class="card-title fw-normal"><?= $value['product_name'] ?></h6>
-                             <div class="fw-bold my-1 fs-5"><?= number_format($value['sale_price']) ?> VNĐ</div>
-                             <div class="text-muted text-decoration-line-through"><?= number_format($value['base_price']) ?> VNĐ</div>
-                         </div>
-                     </a>
-                 </div>
-             <?php
-                endforeach;
-                ?>
-             <?php
-                foreach ($listView as $key => $value):
-                ?>
-                 <div class="col-md-3">
                      <a href="?controller=productdetail&id=<?= $value['product_id'] ?>&colorId=<?= $value['color_id'] ?>&sizeId=<?= $value['size_id'] ?>">
                          <div class="position-relative">
                              <img src="uploads/<?= $value['image'] ?>" class="card-img-top" alt="Product Image">

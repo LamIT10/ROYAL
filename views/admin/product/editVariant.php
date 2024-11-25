@@ -34,13 +34,13 @@
         </div>
 
         <div class="row mb-3">
-            <div class="d-flex flex-column gap-3 ml-3">
+            <div class="d-flex gap-4">
                 <?php
                 foreach ($color as $key => $value) {
                 ?>
-                    <div class="form-check">
+                    <div class="form-check me-2">
                         <input <?php echo ($variant['color_id'] == $value['color_id']) ? "checked" : "" ?> class="form-check-input" type="radio" name="color_id" id="color<?= $value['color_id'] ?>" value="<?= $value['color_id'] ?>">
-                        <label for="color<?= $value['color_id'] ?>" style="background-color: <?= $value['color_code'] ?>; width:30px;height:30px" class="form-check-label rounded-circle border"></label>
+                        <label for="color<?= $value['color_id'] ?>" style="background-color: <?= $value['color_code'] ?>; width:30px;height:30px;border:1px solid" class="form-check-label rounded-circle"></label>
                     </div>
                 <?php
                 }

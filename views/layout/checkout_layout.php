@@ -67,8 +67,22 @@
 <body>
     <?php
     getToast();
-    var_dump($_SESSION['cart']);
-    $final_price = ($totalFinal > 0) ? $totalFinal : $totalPrice;
+    // var_dump($_SESSION['cart']);
+    $final_price = 0;
+    if ($totalFinal > 0) {
+        if ($totalPrice > 500000) {
+            $final_price = $totalFinal;
+        } else {
+            $final_price = $totalFinal  + 20000;
+        }
+    } else {
+        if ($totalPrice < 500000) {
+            $final_price = $totalPrice + 20000;
+        } else {
+            $final_price = $totalPrice;
+        }
+    }
+    // echo $final_price;
     ?>
     <div class="container my-5">
         <div class="row">
@@ -165,8 +179,8 @@
                     <div class="mb-3">
                         <label for="payment_method" class="form-label">Phương thức thanh toán</label>
                         <div>
-                            <input class="method" type="radio" name="payment_method" value="0" checked id=""><span style="margin-right: 20px;"> Tiền mặt</span style="margin-right: 20px;">
-                            <input class="method" type="radio" name="payment_method" value="vnpay" id=""> VNPAY
+                            <input class="method" type="radio" name="payment_method" value="0" id=""><span style="margin-right: 20px;"> Tiền mặt</span style="margin-right: 20px;">
+                            <input class="method" type="radio" name="payment_method" checked value="1" id=""> VNPAY
                         </div>
                     </div>
                     <input type="hidden" name="final_price" value="<?= $final_price ?>">
@@ -261,21 +275,7 @@
                             <strong>Tổng thanh toán:</strong>
                             <strong>
                                 <?php
-                                if ($totalFinal == 0) {
-                                    if ($totalPrice > 500000) {
-                                        echo number_format($totalPrice) . " VNĐ";
-                                    } else {
-                                        $totalPriceFinal = $totalPrice + 20000;
-                                        echo number_format($totalPriceFinal) . " VNĐ";
-                                    }
-                                } else {
-                                    if ($totalPrice > 500000) {
-                                        echo number_format($totalFinal) . " VNĐ";
-                                    } else {
-                                        $totalPriceFinal = $totalFinal + 20000;
-                                        echo number_format($totalPriceFinal) . " VNĐ";
-                                    }
-                                }
+                                echo number_format($final_price) . " VNĐ";
                                 ?>
                             </strong>
                         </div>
