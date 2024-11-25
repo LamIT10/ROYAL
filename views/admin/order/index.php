@@ -25,7 +25,7 @@
                         <?php foreach ($listOrder as $key => $item) : ?>
 
                             <tr>
-                                <td><?= $key + 1 ?> </td>
+                                <td><?= "ROYAL_".$item['order_id'] ?> </td>
                                 <td><?php
                                     if ($item['payment_method'] == 0) {
                                         echo "Thanh toán COD";
@@ -73,8 +73,8 @@
                                         </button>
                                     </a>';
                                     } else if ($item['order_status'] == 2) {
-                                        echo '<a class="m-2 d-block" href="?role=admin&controller=order&action=orderSuccess&status=' . $item['order_status'] . '&id=' . $item['order_id'] . '">
-                                        <button class="btn btn-success btn-sm">
+                                        echo '<a class="m-2 d-block" href="?role=admin&controller=order&action=buttonChangeStatus&status=' . $item['order_status'] . '&id=' . $item['order_id'] . '">
+                                        <button class="btn btn-primary btn-sm">
                                            Xác nhận giao thành công
                                         </button>
                                     </a>';

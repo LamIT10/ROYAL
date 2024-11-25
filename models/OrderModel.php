@@ -7,9 +7,8 @@ class OrderModel extends Model
         $sql = "SELECT * from orders inner join";
     }
     public function buttonChangeStatus($id, $status)
-    { 
-        if($status == 3){
-
+    {
+        if ($status == 3) {
         }
         $sql = "UPDATE orders SET order_status = $status + 1 WHERE order_id = $id";
         $stmt = $this->conn->prepare($sql);
@@ -25,5 +24,17 @@ class OrderModel extends Model
       on e.size_id = c.size_id inner join products pr on pr.product_id = c.product_id where user_id = $user_id";
         $list = $this->selectAll($sql);
         return $list;
+    }
+    public function handleSuccessShipping($order_id)
+    {
+        $sql = "UPDATE orders set order_status = 3, payment_status = 1 where order_id = $order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+    public function getOrderDetail($order_id)
+    {
+        $sql = "SELECT * FROM order_details where order_id = $order_id";
+        return $this->selectAll($sql);
     }
 }
