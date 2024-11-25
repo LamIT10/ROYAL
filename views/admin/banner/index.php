@@ -94,10 +94,6 @@
             </div>
             <a href="?role=admin&controller=banner&page=2">>></a>
         </div>
-
-
-
-
     </div>
 </div>
 

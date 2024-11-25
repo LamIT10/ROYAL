@@ -58,7 +58,7 @@ class CheckoutController extends Controller
                     if ($value['voucher_code'] == $_POST['voucher_code']) {
                         $check = false;
                         $voucherWasUsed = $this->voucher->checkVoucherUsed($value['voucher_id'], $_SESSION['user']['user_id']);
-                        if(!empty($voucherWasUsed)){
+                        if (!empty($voucherWasUsed)) {
                             throw new Exception("Bạn đã sử dụng voucher này");
                         }
                         if ($value['min_price'] > $total) {

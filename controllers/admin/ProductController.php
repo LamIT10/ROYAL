@@ -97,9 +97,10 @@ class ProductController extends Controller
     public function addVariant()
     {
         $title = "Add variant";
+        $color = $this->variant->selectAll("SELECT * FROM colors");
         $content = "admin/product/addVariant";
         $layoutPath = "admin_layout";
-        $this->renderView($layoutPath, $content, ["title" => $title]);
+        $this->renderView($layoutPath, $content, ["title" => $title, "color" => $color]);
     }
 
 
@@ -274,13 +275,19 @@ class ProductController extends Controller
             } else {
                 move_uploaded_file($_FILES['image_main']['tmp_name'], "uploads/" . $_FILES['image_main']['name']);
                 $dataPost['image_main'] = $_FILES['image_main']['name'];
-                
+
                 $variantIdNew = $this->variant->insert($dataPost);
                 $imageLenght = count($_FILES['image']['name']);
                 for ($i = 0; $i < $imageLenght; $i++) {
-                    move_uploaded_file($_FILES['image']['tmp_name'][$i], "uploads/" . $_FILES['image']['name'][$i]);
-                    $imageNew = $_FILES['image']['name'][$i];
-                    $imageIdNew[] = $this->variant->insert2(['image_link' => $imageNew], "images");
+                    $issetImage = $this->variant->find("*", "image_link = :image_link", ["image_link" => $_FILES['image']['name'][$i]], "images");
+                    if (($issetImage)) {
+                        // check xem trong bảng image đã có ảnh đó hay chưa
+                        $imageIdNew[] = $issetImage['image_id']; // có thì lấy đúng id của ảnh để làm image_id cho bản ghi mới của image_variant
+                    } else {
+                        move_uploaded_file($_FILES['image']['tmp_name'][$i], "uploads/" . $_FILES['image']['name'][$i]);
+                        $imageNew = $_FILES['image']['name'][$i];
+                        $imageIdNew[] = $this->variant->insert2(['image_link' => $imageNew], "images");
+                    }
                 }
                 $countImage = count($imageIdNew);
                 for ($i = 0; $i < $countImage; $i++) {
@@ -374,9 +381,15 @@ class ProductController extends Controller
                 if ($dataFile['image']['size'][0] > 0) {
                     $imageLenght = count($_FILES['image']['name']);
                     for ($i = 0; $i < $imageLenght; $i++) {
-                        move_uploaded_file($_FILES['image']['tmp_name'][$i], "uploads/" . $_FILES['image']['name'][$i]);
-                        $imageNew = $_FILES['image']['name'][$i];
-                        $imageIdNew[] = $this->variant->insert2(['image_link' => $imageNew], "images");
+                        $issetImage = $this->variant->find("*", "image_link = :image_link", ["image_link" => $_FILES['image']['name'][$i]], "images");
+                        if (($issetImage)) {
+                            // check xem trong bảng image đã có ảnh đó hay chưa
+                            $imageIdNew[] = $issetImage['image_id']; // có thì lấy đúng id của ảnh để làm image_id cho bản ghi mới của image_variant
+                        } else {
+                            move_uploaded_file($_FILES['image']['tmp_name'][$i], "uploads/" . $_FILES['image']['name'][$i]);
+                            $imageNew = $_FILES['image']['name'][$i];
+                            $imageIdNew[] = $this->variant->insert2(['image_link' => $imageNew], "images");
+                        }
                     }
                     $rowCount = $this->variant->delete2("image_variant", "variant_id = :id", ["id" => $id]);
                     $countImage = count($imageIdNew);

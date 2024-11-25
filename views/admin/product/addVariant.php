@@ -1,5 +1,4 @@
 <div class="container mt-4">
-
     <form action="?role=admin&controller=product&action=storeVariant&id=<?= $_GET['id'] ?>" method="POST" enctype="multipart/form-data" class="p-4 my-5 shadow-sm mx-auto" style="width: 83.33%; background: #fff; border-radius: 8px;">
         <h6 class="mb-4 font-weight-bold text-primary">Thêm Biến Thể</h6>
 
@@ -29,43 +28,26 @@
             </div>
         </div>
         <?= getErorr('compare_price') ?>
+        <div class="d-flex gap-3">
+            <hr>
+            <?php
+            foreach ($color as $key => $value) {
+            ?>
+                <div class="form-check">
+                    <input class="form-check-input" hidden type="radio" name="color_id" id="color_id<?= $value['color_id'] ?>" value="<?= $value['color_id'] ?>">
+                    <label onclick="selectedBox(this)" class="form-check-label color opacity-50 opacity-100" style="width:35px;height:35px;background-color: <?= $value['color_code'] ?>;border:1px solid #474747;" for="color_id<?= $value['color_id'] ?>"></label>
+                </div>
+            <?php
+            }
+            ?>
 
+
+            <?= getErorr('color') ?>
+            <?= getErorr('variant') ?>
+        </div>
         <div class="row mb-3 mt-3">
             <!-- Trường Color -->
-            <div class="col-md-4">
-                <!-- Màu Trắng -->
-                <hr>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="color_id" id="colorWhite" value="1">
-                    <label class="form-check-label" for="colorWhite">Trắng</label>
-                </div>
 
-                <!-- Màu Đen -->
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="color_id" id="colorBlack" value="2">
-                    <label class="form-check-label" for="colorBlack">Đen</label>
-                </div>
-
-                <!-- Màu Hồng -->
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="color_id" id="colorPink" value="4">
-                    <label class="form-check-label" for="colorPink">Hồng</label>
-                </div>
-
-                <!-- Màu Xanh lục -->
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="color_id" id="colorGreen" value="3">
-                    <label class="form-check-label" for="colorGreen">Xanh lục</label>
-                </div>
-
-                <!-- Màu Xanh nước biển -->
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="color_id" id="colorBlue" value="5">
-                    <label class="form-check-label" for="colorBlue">Xanh nước biển</label>
-                </div>
-                <?= getErorr('color') ?>
-                <?= getErorr('variant') ?>
-            </div>
 
             <!-- Trường Size -->
             <div class="col-md-4">
@@ -97,17 +79,17 @@
                 <?= getErorr('quantity') ?>
             </div>
         </div>
-            <!-- Trường Image -->
-            <div class="mb-4">
-                <label for="image" class="form-label">Image main</label>
-                <input type="file" class="form-control" id="image" name="image_main">
-                <?= getErorr('image_main') ?>
-            </div>
-            <div class="mb-4">
-                <label for="image" class="form-label">Image add (Choose 3 images)</label>
-                <input type="file" class="form-control" id="image" name="image[]" multiple>
-                <?= getErorr('image') ?>
-            </div>
+        <!-- Trường Image -->
+        <div class="mb-4">
+            <label for="image" class="form-label">Image main</label>
+            <input type="file" class="form-control" id="image" name="image_main">
+            <?= getErorr('image_main') ?>
+        </div>
+        <div class="mb-4">
+            <label for="image" class="form-label">Image add (Choose 3 images)</label>
+            <input type="file" class="form-control" id="image" name="image[]" multiple>
+            <?= getErorr('image') ?>
+        </div>
 
         <!-- Nút Submit -->
         <div class="text-end">
@@ -117,3 +99,11 @@
 </div>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const checkColor = document.querySelectorAll(".color");
+    const selectedBox = (e) => {
+        const checkColor = document.querySelectorAll(".color");
+        checkColor.forEach(box => box.classList.remove('rounded-circle', 'opacity-100'));
+        e.classList.add('rounded-circle', 'opacity-100');
+    }
+</script>

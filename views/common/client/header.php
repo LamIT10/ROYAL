@@ -22,12 +22,13 @@
             text-decoration: none;
             color: black;
         }
-        .card{
-          border: none;
-          border-radius: 0px;
+
+        .card {
+            border: none;
+            border-radius: 0px;
         }
     </style>
-    
+
 </head>
 
 <body style="background-color: 
@@ -86,9 +87,9 @@
                     </div>
                 </form>
                 <div class="d-flex align-items-center">
-                    <a href="#" class="text-dark text-decoration-none me-4 d-flex flex-column align-items-center">
+                    <a href="?controller=order" class="text-dark text-decoration-none me-4 d-flex flex-column align-items-center">
                         <i class="bi bi-shop fs-6"></i>
-                        <small style="font-size: 13px">Cửa hàng</small>
+                        <small style="font-size: 13px">Đơn hàng</small>
                     </a>
                     <?php
                     // var_dump($_SESSION['user']);
