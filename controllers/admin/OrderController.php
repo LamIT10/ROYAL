@@ -2,10 +2,13 @@
 class OrderController extends Controller
 {
     public $order;
+    public $variant;
     public function __construct()
     {
         $this->loadModel("OrderModel");
         $this->order = new OrderModel();
+        $this->loadModel("VariantModel");
+        $this->variant = new VariantModel();
     }
     public function index()
     {
@@ -19,7 +22,13 @@ class OrderController extends Controller
     {
         $order_id = $_GET['id'];
         $status = $_GET['status'];
-        $rowCount = $this->order->buttonChangeStatus($order_id, $status);
+        // nếu $status = 2, là admin xác nhận giao hàng thành công
+        if ($status == 2) {
+            
+            $row = $this->order->handleSuccessShipping($order_id);
+        } else {
+            $rowCount = $this->order->buttonChangeStatus($order_id, $status);
+        }
         header("Location: ?role=admin&controller=order");
     }
 }

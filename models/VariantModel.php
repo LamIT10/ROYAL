@@ -74,4 +74,10 @@ GROUP BY
         $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $list;
     }
+    public function handleQuantityAfterSuccess($quantity_order,$variant_id){
+        $sql = "UPDATE variants set quantity = quantity - $quantity_order where variant_id = $variant_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
 }
