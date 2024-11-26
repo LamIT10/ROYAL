@@ -40,7 +40,7 @@
 #F2F5F8
 ;">
     <header class="border-bottom bg-white">
-        <div class="bg-dark text-warning py-2 text-center fs-6 fw-semibold">
+        <div style="background-color: #3b3a4a;" class=" text-warning py-2 text-center fs-6 fw-semibold">
             <span>ĐỔI HÀNG MIỄN PHÍ - TẠI TẤT CẢ CỬA HÀNG TRONG 30 NGÀY</span>
         </div>
         <div class="container p-3 ">
