@@ -23,7 +23,7 @@ class OrderController extends Controller
     {
         $title = "Đơn hàng";
         $category = $this->category->select("*", "status = :status", ["status" => 1]);
-        $listOrder = $this->order->select("*");
+        $listOrder = $this->order->select("*", "user_id = :user_id", ['user_id' => $_SESSION['user']['user_id']]);
         $content = "client/order";
         $layoutPath = "client_layout";
         $this->renderView($layoutPath, $content, ["title" => $title, "listOrder" => $listOrder, "category" => $category]);

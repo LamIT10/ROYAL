@@ -4,7 +4,8 @@ class OrderModel extends Model
     public $table = "orders";
     public function getAllOrder()
     {
-        $sql = "SELECT * from orders inner join";
+        $sql = "SELECT a.*,b.full_name from orders a inner join users b on a.user_id = b.user_id order by a.create_at desc";
+        return $this->selectAll($sql);
     }
     public function buttonChangeStatus($id, $status)
     {

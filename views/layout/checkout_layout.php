@@ -7,6 +7,12 @@
     <title>Checkout Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <style>
     .toas {
@@ -62,6 +68,12 @@
         color: red;
         background-color: white;
     }
+
+    .line {
+        width: 100%;
+        height: 5px;
+        border-radius: 5px;
+    }
 </style>
 
 <body>
@@ -90,10 +102,11 @@
             <div class="col-md-7" style="padding:0 50px 0 100px;">
                 <?php
                 if (!empty($inforUsedTo)) {
-                    echo "<p><b>Thông tin bạn đã sử dụng</b></p>";
+                    echo "<div class='bg-primary rounded-sm py-2 px-4 text-white'><b>Thông tin bạn đã sử dụng</b></div>";
+                    echo "<div>";
                     foreach ($inforUsedTo as $key => $value) {
                 ?>
-                        <div class="mb-2 py-3 px-2 border">
+                        <div class="mb-2 py-3">
                             <p><b>Tên người nhận:</b> <?= $value['name'] ?></p>
                             <p><b>Địa chỉ:</b> <?= $value['address'] ?></p>
                             <p><b>SĐT người nhận:</b> <?= $value['phone'] ?></p>
@@ -109,11 +122,13 @@
                             }
                             ?>
                         </div>
+                        <div class="line bg-primary"></div>
                 <?php
                     }
+                    echo "</div>";
                 }
                 ?>
-                <h5 class="mb-3 fs-6 text-primary">Thông tin người nhận</h5>
+                <h5 class="mb-3 fs-6 text-primary mt-3">Thông tin người nhận</h5>
                 <form method="POST" action="?controller=order&action=store">
                     <!-- Name -->
                     <div class="mb-3">
@@ -179,8 +194,8 @@
                     <div class="mb-3">
                         <label for="payment_method" class="form-label">Phương thức thanh toán</label>
                         <div>
-                            <input class="method" type="radio" name="payment_method" value="0" id=""><span style="margin-right: 20px;"> Tiền mặt</span style="margin-right: 20px;">
-                            <input class="method" type="radio" name="payment_method" checked value="1" id=""> VNPAY
+                            <input class="method" type="radio" name="payment_method" checked value="0" id=""><span style="margin-right: 20px;"> Tiền mặt</span style="margin-right: 20px;">
+                            <input class="method" type="radio" name="payment_method" value="1" id="vnpay"> VNPAY
                         </div>
                     </div>
                     <input type="hidden" name="final_price" value="<?= $final_price ?>">
@@ -349,7 +364,7 @@
             if (element.checked) {
                 if (element.value == 0) {
                     place_order.innerHTML = "Xác nhận thanh toán khi nhận hàng";
-                } else if (element.value == "vnpay") {
+                } else if (element.value == 1) {
                     place_order.innerHTML = "Thanh toán bằng VNPAY"
                 }
             }
