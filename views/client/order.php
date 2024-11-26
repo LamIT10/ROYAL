@@ -88,7 +88,7 @@
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 4 || $value['order_status'] == 3) {
             ?>
-                <div class="order-item d-flex align-items-center">
+                <div class="order-item d-flex align-items-center justify-content-between">
                     <table>
                         <tr>
                             <th>Mã đơn hàng: </th>
@@ -103,7 +103,10 @@
                             <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
                         </tr>
                     </table>
-                    <span class="ms-auto status">Chi tiết</span>
+                    <div class="d-flex align-item-end flex-column">
+                        <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
+                        <a class="btn btn-primary d-block" href="?role=admin&controller=order&action=buttonChangeStatus&status=<?= $value['order_status'] ?>&id=<?= $value['order_id'] ?>">Xác nhận đơn hàng</a>
+                    </div>
                 </div>
             <?php
                 }
@@ -116,7 +119,7 @@
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 0) {
             ?>
-                <div class="order-item d-flex align-items-center">
+                <div class="order-item d-flex align-items-center justify-content-between">
                     <table>
                         <tr>
                             <th>Mã đơn hàng: </th>
@@ -142,7 +145,7 @@
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 1) {
             ?>
-                <div class="order-item d-flex align-items-center">
+                <div class="order-item d-flex align-items-center justify-content-between">
                     <table>
                         <tr>
                             <th>Mã đơn hàng: </th>
@@ -169,7 +172,7 @@
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 2) {
             ?>
-                <div class="order-item d-flex align-items-center">
+                <div class="order-item d-flex align-items-center justify-content-between">
                     <table>
                         <tr>
                             <th>Mã đơn hàng: </th>
@@ -184,7 +187,9 @@
                             <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
                         </tr>
                     </table>
-                    <span class="ms-auto status">Chi tiết</span>
+                    <div class="d-flex align-item-end flex-column">
+                        <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
+                    </div>
                 </div>
             <?php
                 }
@@ -197,7 +202,7 @@
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 3) {
             ?>
-                <div class="order-item d-flex align-items-center">
+                <div class="order-item d-flex align-items-center justify-content-between">
                     <table>
                         <tr>
                             <th>Mã đơn hàng: </th>
@@ -225,7 +230,7 @@
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 5) {
             ?>
-                <div class="order-item d-flex align-items-center">
+                <div class="order-item d-flex align-items-center justify-content-between">
                     <table>
                         <tr>
                             <th>Mã đơn hàng: </th>
