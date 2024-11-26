@@ -5,7 +5,7 @@
 // var_dump($category);
 ?>
 <div class="container-fluid">
-   
+
     <?php
     if (isset($_SESSION['success'])) {
         if ($_SESSION['success']) {
@@ -39,7 +39,7 @@
                             <th>View</th>
                             <th>Category</th>
                             <th>Image</th>
-                            <th>Actions</th>
+                            <th colspan="4">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,16 +60,22 @@
                                             <i class="fa fa-pencil-alt"></i>
                                         </button>
                                     </a>
+                                </td>
+                                <td>
                                     <a onclick="return confirm('Các biển thể của sản phẩm này cũng sẽ bị xoá, bạn có chắc chắn không?')" href="?role=admin&controller=product&action=delete&id=<?= $item['product_id'] ?>">
                                         <button class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </a>
+                                </td>
+                                <td>
                                     <a href="?role=admin&controller=product&action=show&id=<?= $item['product_id'] ?>">
                                         <button class="btn btn-primary btn-sm">
                                             View variants
                                         </button>
                                     </a>
+                                </td>
+                                <td>
                                     <a href="?role=admin&controller=product&action=changeStatus&id=<?= $item['product_id'] ?>&status=<?= $item['status'] ?>">
                                         <button class="btn btn-secondary btn-sm">
                                             <i class="fa fa-ban"></i> <?php echo $item['status'] == 1 ? 'disable' : 'enable' ?>

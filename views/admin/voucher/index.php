@@ -15,7 +15,7 @@
                             <th>Quantity</th>
                             <th>Min Price</th>
                             <th>Description</th>
-                            <th>Actions</th>
+                            <th colspan="2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,6 +34,8 @@
                                             <i class="fa fa-pencil-alt"></i>
                                         </button>
                                     </a>
+                                </td>
+                                <td>
                                     <a onclick="return confirm('Bạn có chắc chắn xoá danh mục này không?')" href="?role=admin&controller=voucher&action=delete&id=<?= $item['voucher_id'] ?>">
                                         <button class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash"></i>

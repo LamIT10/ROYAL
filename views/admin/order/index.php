@@ -78,9 +78,6 @@
         <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#2">Đang vận chuyển</button>
         </li>
-        <!-- <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#3">Đánh giá</button>
-        </li> -->
         <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#5">Đã hủy</button>
         </li>
@@ -94,62 +91,10 @@
         <!-- Tất cả -->
         <div class="tab-pane fade" id="3">
             <?php
+            $check = 0;
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 3 || $value['order_status'] == 4) {
-            ?>
-                <div class="order-item d-flex align-items-center justify-content-between border p-3 rounded mb-3">
-                    <table>
-                        <tr>
-                            <th>Tên khách hàng: </th>
-                            <td><?= $value['full_name'] ?></td>
-                        </tr>
-                        <tr>
-                            <th>Mã đơn hàng: </th>
-                            <td>ROYAL_<?= $value['order_id'] ?></td>
-                        </tr>
-                        <tr>
-                            <th>Cập nhật lần cuối: </th>
-                            <td><?= $value['update_at'] ?></td>
-                        </tr>
-                        <tr>
-                            <th>Phương thức thanh toán: </th>
-                            <td><?php
-                                if ($value['payment_method'] == 0) {
-                                    echo "Thanh toán COD";
-                                } else if ($item['payment_method'] == 1) {
-                                    echo "Thanh toán VNPAY";
-                                }
-                                ?></td>
-                        </tr>
-                        <tr>
-                            <th>Trạng thái thanh toán: </th>
-                            <td><?php
-                                if ($value['payment_status'] == 0) {
-                                    echo "<div class='bg-secondary text-white rounded p-1 text-center'>Chưa thanh toán</div>";
-                                } else if ($value['payment_status'] == 1) {
-                                    echo "<div class='bg-success text-white rounded p-1 text-center'>Đã thanh toán</div>";
-                                }
-                                ?></td>
-                        </tr>
-                        <tr>
-                            <th>Tổng thanh toán: </th>
-                            <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
-                        </tr>
-                    </table>
-                    <div class="d-flex align-item-end flex-column">
-                        <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
-                    </div>
-                </div>
-            <?php
-                }
-            ?>
-        </div>
-
-        <!-- Chờ thanh toán -->
-        <div class="tab-pane fade show active" id="0">
-            <?php
-            foreach ($listOrder as $key => $value)
-                if ($value['order_status'] == 0) {
+                    $check++;
             ?>
                 <div class="order-item d-flex align-items-center justify-content-between border p-3 rounded mb-3">
                     <table>
@@ -192,17 +137,90 @@
                     </table>
                     <div class="d-flex align-item-end flex-column">
                         <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
-                        <a class="btn btn-primary d-block" href="?role=admin&controller=order&action=buttonChangeStatus&status=<?= $value['order_status'] ?>&id=<?= $value['order_id'] ?>">Xác nhận đơn hàng</a>
                     </div>
                 </div>
             <?php
                 }
+            if ($check == 0) {
+            ?>
+                <div>
+                    <img style="width: 100%;" src="uploads/order_status_empty.png" alt="">
+                </div>
+            <?php
+            }
+            ?>
+        </div>
+
+        <!-- Chờ thanh toán -->
+        <div class="tab-pane fade show active" id="0">
+            <?php
+            $check = 0;
+            foreach ($listOrder as $key => $value) {
+                if ($value['order_status'] == 0) {
+                    $check = 1;
+            ?>
+                    <div class="order-item d-flex align-items-center justify-content-between border p-3 rounded mb-3">
+                        <table>
+                            <tr>
+                                <th>Tên khách hàng: </th>
+                                <td><?= $value['full_name'] ?></td>
+                            </tr>
+                            <tr>
+                                <th>Mã đơn hàng: </th>
+                                <td>ROYAL_<?= $value['order_id'] ?></td>
+                            </tr>
+                            <tr>
+                                <th>Cập nhật lần cuối: </th>
+                                <td><?= $value['update_at'] ?></td>
+                            </tr>
+                            <tr>
+                                <th>Phương thức thanh toán: </th>
+                                <td><?php
+                                    if ($value['payment_method'] == 0) {
+                                        echo "Thanh toán COD";
+                                    } else if ($value['payment_method'] == 1) {
+                                        echo "Thanh toán VNPAY";
+                                    }
+                                    ?></td>
+                            </tr>
+                            <tr>
+                                <th>Trạng thái thanh toán: </th>
+                                <td><?php
+                                    if ($value['payment_status'] == 0) {
+                                        echo "<div class='bg-secondary text-white rounded p-1 text-center'>Chưa thanh toán</div>";
+                                    } else if ($value['payment_status'] == 1) {
+                                        echo "<div class='bg-success text-white rounded p-1 text-center'>Đã thanh toán</div>";
+                                    }
+                                    ?></td>
+                            </tr>
+                            <tr>
+                                <th>Tổng thanh toán: </th>
+                                <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
+                            </tr>
+                        </table>
+                        <div class="d-flex align-item-end flex-column">
+                            <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
+                            <a class="btn btn-primary d-block" href="?role=admin&controller=order&action=buttonChangeStatus&status=<?= $value['order_status'] ?>&id=<?= $value['order_id'] ?>">Xác nhận đơn hàng</a>
+                        </div>
+                    </div>
+                <?php
+                }
+            }
+            if ($check == 0) {
+                ?>
+                <div>
+                    <img style="width: 100%;" src="uploads/order_status_empty.png" alt="">
+                </div>
+            <?php
+            }
             ?>
         </div>
         <div class="tab-pane fade" id="1">
             <?php
+            $check = 0;
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 1) {
+                    $check = 1;
             ?>
                 <div class="order-item d-flex align-items-center justify-content-between border p-3 rounded mb-3">
                     <table>
@@ -250,13 +268,22 @@
                 </div>
             <?php
                 }
+            if ($check == 0) {
+            ?>
+                <div>
+                    <img style="width: 100%;" src="uploads/order_status_empty.png" alt="">
+                </div>
+            <?php
+            }
             ?>
         </div>
         <!-- Vận chuyển -->
         <div class="tab-pane fade" id="2">
             <?php
+            $check = 0;
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 2) {
+                    $check = 1;
             ?>
                 <div class="order-item d-flex align-items-center justify-content-between border p-3 rounded mb-3">
                     <table>
@@ -304,6 +331,13 @@
                 </div>
             <?php
                 }
+            if ($check == 0) {
+            ?>
+                <div>
+                    <img style="width: 100%;" src="uploads/order_status_empty.png" alt="">
+                </div>
+            <?php
+            }
             ?>
         </div>
 
@@ -313,8 +347,10 @@
         <!-- Đã hủy -->
         <div class="tab-pane fade" id="5">
             <?php
+            $check = 0;
             foreach ($listOrder as $key => $value)
                 if ($value['order_status'] == 5) {
+                    $check = 1;
             ?>
                 <div class="order-item d-flex align-items-center justify-content-between border p-3 rounded mb-3">
                     <table>
@@ -362,6 +398,13 @@
                 </div>
             <?php
                 }
+            if ($check == 0) {
+            ?>
+                <div>
+                    <img style="width: 100%;" src="uploads/order_status_empty.png" alt="">
+                </div>
+            <?php
+            }
             ?>
         </div>
     </div>

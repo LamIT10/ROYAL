@@ -24,9 +24,10 @@ class OrderController extends Controller
         $title = "Đơn hàng";
         $category = $this->category->select("*", "status = :status", ["status" => 1]);
         $listOrder = $this->order->select("*", "user_id = :user_id", ['user_id' => $_SESSION['user']['user_id']]);
+        $listOrderDetail = $this->order->showOrderByUser($_SESSION['user']['user_id']);
         $content = "client/order";
         $layoutPath = "client_layout";
-        $this->renderView($layoutPath, $content, ["title" => $title, "listOrder" => $listOrder, "category" => $category]);
+        $this->renderView($layoutPath, $content, ["title" => $title, "listOrder" => $listOrder, "category" => $category, "listOrderDetail" => $listOrderDetail]);
     }
     public function createOrder($payment_method, $payment_status)
     {
@@ -47,7 +48,6 @@ class OrderController extends Controller
                 ];
                 $idInforLast = $this->inforRecept->insert($dataInforRecept);
             }
-
             $dataOrder = [
                 "user_id" => $_SESSION['user']['user_id'],
                 "infor_id" => $idInforLast,
@@ -178,4 +178,15 @@ class OrderController extends Controller
             header("Location: /order-summary");
         }
     }
+    public function cancelOrder()
+    {
+        $order_id = $_GET['order_id'];
+        $row = $this->order->update(['order_status' => 5], "order_id = :order_id", ['order_id' => $order_id]);
+        if ($row > 0) {
+            $_SESSION['success'] = true;
+            $_SESSION['message'] = "Huỷ đơn hàng thành công";
+            header("Location:" . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
 }
