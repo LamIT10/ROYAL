@@ -44,7 +44,7 @@
     }
 
     th {
-        padding: 8px 20px 8px 5px;
+        padding: 8px 20px 8px 15px;
     }
 </style>
 <?php
@@ -73,32 +73,37 @@
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#3">Đánh giá</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#4">Đã hủy</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#5">Đã hủy</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#5">Lịch sử mua hàng</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#4">Lịch sử mua hàng</button>
         </li>
     </ul>
 
     <!-- Tab Content -->
     <div class="tab-content">
         <!-- Tất cả -->
-        <div class="tab-pane fade" id="5">
+        <div class="tab-pane fade" id="4">
             <?php
             foreach ($listOrder as $key => $value)
-                if ($value['order_status'] == 5) {
+                if ($value['order_status'] == 4 || $value['order_status'] == 3) {
             ?>
                 <div class="order-item d-flex align-items-center">
-                    <img src="https://via.placeholder.com/80" alt="Product">
-                    <div class="ms-3">
-                        <h6 class="fw-bold mb-1">Áo phông freesize Unisex</h6>
-                        <p class="mb-1">Phân loại: Màu trắng</p>
-                        <div class="d-flex justify-content-between">
-                            <span class="price">50,000đ</span>
-                            <span class="original-price">70,000đ</span>
-                        </div>
-                    </div>
-                    <span class="ms-auto status">Chờ thanh toán</span>
+                    <table>
+                        <tr>
+                            <th>Mã đơn hàng: </th>
+                            <td>ROYAL_<?= $value['order_id'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Cập nhật lần cuối: </th>
+                            <td><?= $value['update_at'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Tổng thanh toán: </th>
+                            <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
+                        </tr>
+                    </table>
+                    <span class="ms-auto status">Chi tiết</span>
                 </div>
             <?php
                 }
@@ -126,7 +131,7 @@
                             <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
                         </tr>
                     </table>
-                    <span class="ms-auto status">Xem chi tiết</span>
+                    <span class="ms-auto status">Chi tiết</span>
                 </div>
             <?php
                 }
@@ -152,7 +157,7 @@
                             <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
                         </tr>
                     </table>
-                    <span class="ms-auto status">Xem chi tiết</span>
+                    <span class="ms-auto status">Chi tiết</span>
                 </div>
             <?php
                 }
@@ -179,7 +184,7 @@
                             <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
                         </tr>
                     </table>
-                    <span class="ms-auto status">Xem chi tiết</span>
+                    <span class="ms-auto status">Chi tiết</span>
                 </div>
             <?php
                 }
@@ -207,7 +212,7 @@
                             <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
                         </tr>
                     </table>
-                    <span class="ms-auto status">Xem chi tiết</span>
+                    <a href="?controller=comment&order_id=<?= $value['order_id'] ?>" class="ms-auto btn btn-danger">Đánh giá đơn hàng</a>
                 </div>
             <?php
                 }
@@ -215,10 +220,10 @@
         </div>
 
         <!-- Đã hủy -->
-        <div class="tab-pane fade" id="4">
+        <div class="tab-pane fade" id="5">
             <?php
             foreach ($listOrder as $key => $value)
-                if ($value['order_status'] == 4) {
+                if ($value['order_status'] == 5) {
             ?>
                 <div class="order-item d-flex align-items-center">
                     <table>
@@ -235,7 +240,6 @@
                             <td><?= number_format($value['final_price']) . " VNĐ" ?></td>
                         </tr>
                     </table>
-                    <span class="ms-auto status">Xem chi tiết</span>
                 </div>
             <?php
                 }

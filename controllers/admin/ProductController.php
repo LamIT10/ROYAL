@@ -148,7 +148,7 @@ class ProductController extends Controller
                     $_SESSION['error']['image'] = "Dung lượng hình ảnh phải nhỏ hơn 2MB";
                 }
                 $fileType = $image['type'];
-                $allowType = array("image/jpeg", "image/png", "image/gif", "image/jpg");
+                $allowType = array("image/jpeg", "image/png", "image/gif", "image/jpg", "image/webp");
                 if (!in_array($fileType, $allowType)) {
                     $_SESSION['error']['image'] = "Định dạng hình ảnh không phù hợp, cho phép jpeg, png, gif, jpg, webp";
                 }

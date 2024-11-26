@@ -13,7 +13,7 @@ class OrderController extends Controller
     public function index()
     {
         $title = "Quản lý đơn hàng";
-        $listOrder = $this->order->select("*");
+        $listOrder = $this->order->getAllOrder();
         $content = "admin/order/index";
         $layoutPath = "admin_layout";
         $this->renderView($layoutPath, $content, ["title" => $title, "listOrder" => $listOrder]);
