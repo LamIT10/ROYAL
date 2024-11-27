@@ -64,4 +64,13 @@ class ProductModel extends Model
         ];
         return $productDetail;
     }
+    public function getRating($id)
+    {
+        $sql = "SELECT AVG(rating) as rating, COUNT(rating) as count from comments where product_id = $id group by product_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $list = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $list;
+    }
+    
 }

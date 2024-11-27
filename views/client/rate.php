@@ -16,25 +16,28 @@
     }
 </style>
 <?php
-
-
 ?>
 <div class="container py-5">
     <div class="row">
-        <!-- Bên trái: Thông tin sản phẩm -->
-        <div class="col-md-5">
-            <div class="product-info bg-white shadow-sm p-4 rounded">
-                <h5>Thông tin sản phẩm</h5>
-                <hr>
-                <div class="text-center">
-                    <img src="https://via.placeholder.com/150" class="img-fluid mb-3" alt="Product">
-                    <h6>Tên sản phẩm</h6>
-                    <p class="text-muted">Mã sản phẩm: 12345</p>
-                    <p class="text-danger fw-bold">Giá: 440,000 VND</p>
+        <div class="col-5">
+            <?php
+            foreach ($orderInfor as $key => $item) {
+            ?>
+                <div class="row shadow-sm p-3 rounded bg-white mb-3 mr-2">
+                    <div class="col-5"><img style="width: 100%;" src="uploads/<?= $item['image_main'] ?>" alt="Sản phẩm"></div>
+                    <div class="col-7">
+                        <p><span class="label">Màu sắc:</span> <?= $item['color_name'] ?></p>
+                        <p><span class="label">Size:</span> <?= $item['size_name'] ?></p>
+                        <p><span class="label">Số lượng:</span> <?= $item['quantity'] ?></p>
+                        <p class="mt-2"><span class="label">Giá:</span> <?= number_format($item['price']) . " VNĐ" ?></p>
+                        
+                    </div>
                 </div>
-            </div>
-        </div>
 
+            <?php
+            }
+            ?>
+        </div>
         <!-- Bên phải: Đánh giá -->
         <div class="col-md-7 bg-white shadow-sm p-4 rounded">
             <h5>Đánh giá sản phẩm</h5>

@@ -99,30 +99,42 @@
     <div class="container my-5">
         <div class="row">
             <!-- Form bên trái -->
-            <div class="col-md-7" style="padding:0 50px 0 100px;">
+            <div class="col-md-7" style="padding:0 50px 0 70px;">
                 <?php
                 if (!empty($inforUsedTo)) {
-                    echo "<div class='bg-primary rounded-sm py-2 px-4 text-white'><b>Thông tin bạn đã sử dụng</b></div>";
-                    echo "<div>";
+                    // echo "<div class='bg-primary rounded-sm py-2 px-4 text-white'><b>Thông tin bạn đã sử dụng</b></div>";
+                    echo "<div class='accordion p-3 p-1' style='background-color: #E3EEFF' id='accordionExample'>";
+                    echo "<h5 class='mb-3 fs-6 text-primary'>Thông tin bạn đã sử dụng</h5>";
                     foreach ($inforUsedTo as $key => $value) {
                 ?>
-                        <div class="mb-2 py-3">
-                            <p><b>Tên người nhận:</b> <?= $value['name'] ?></p>
-                            <p><b>Địa chỉ:</b> <?= $value['address'] ?></p>
-                            <p><b>SĐT người nhận:</b> <?= $value['phone'] ?></p>
-                            <?php
-                            if (isset($_SESSION['inforUsedTo']) && $_SESSION['inforUsedTo']['infor_id'] == $value['infor_id']) {
-                            ?>
-                                <a href="?controller=checkout&action=unUseInforOld&id=<?= $value['infor_id'] ?>" class="btn btn-danger">Bỏ chọn</a>
-                            <?php
-                            } else {
-                            ?>
-                                <a href="?controller=checkout&action=useInforOld&id=<?= $value['infor_id'] ?>" class="btn btn-primary">Dùng thông tin này</a>
-                            <?php
-                            }
-                            ?>
+
+                        <div class="accordion-item" style="border-radius: 5px">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#col<?= $value['infor_id'] ?>" aria-expanded="false" aria-controls="col<?= $value['infor_id'] ?>">
+                                    <?php echo $value['address'] ?>
+                                </button>
+                            </h2>
+                            <div id="col<?= $value['infor_id'] ?>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body" style="border-bottom:3px solid #CFE2FF">
+                                    <div class="mb-2 py-3">
+                                        <p><b>Tên người nhận:</b> <?= $value['name'] ?></p>
+                                        <p><b>Địa chỉ:</b> <?= $value['address'] ?></p>
+                                        <p><b>SĐT người nhận:</b> <?= $value['phone'] ?></p>
+                                        <?php
+                                        if (isset($_SESSION['inforUsedTo']) && $_SESSION['inforUsedTo']['infor_id'] == $value['infor_id']) {
+                                        ?>
+                                            <a href="?controller=checkout&action=unUseInforOld&id=<?= $value['infor_id'] ?>" class="btn btn-danger">Bỏ chọn</a>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <a href="?controller=checkout&action=useInforOld&id=<?= $value['infor_id'] ?>" class="btn btn-primary">Dùng thông tin này</a>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="line bg-primary"></div>
                 <?php
                     }
                     echo "</div>";
@@ -131,17 +143,27 @@
                 <h5 class="mb-3 fs-6 text-primary mt-3">Thông tin người nhận</h5>
                 <form method="POST" action="?controller=order&action=store">
                     <!-- Name -->
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Họ và tên</label>
-                        <input type="text" value="<?= showInforRecept("name") ?>" id="name" name="name" class="form-control" placeholder="Nhập họ và tên">
-                    </div>
+                    <?php
+                    if (!isset($_SESSION['inforUsedTo'])) {
+                    ?>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Họ và tên</label>
+                            <input type="text" value="" id="name" name="name" class="form-control" placeholder="Nhập họ và tên">
+                        </div>
+                    <?php
+                    } else {
+                    ?>
+                        <p class="mb-3 py-2 px-3 border"><b>Họ và tên người nhận:</b> <?= showInforRecept("name") ?></p>
+                    <?php
+                    }
+                    ?>
 
                     <!-- Address -->
                     <div class="mb-3">
-                        <label for="address" class="form-label">Địa chỉ</label>
+
                         <?php
                         if (!isset($_SESSION['inforUsedTo'])) {
-                        ?>
+                        ?><label for="address" class="form-label">Địa chỉ</label>
                             <div class="px-4 py-3 border">
                                 <div class="mb-3">
                                     <label for="city" class="form-label">Tỉnh/Thành phố</label>
@@ -174,7 +196,7 @@
                         } else {
                             $arrAddres = explode(" - ", showInforRecept("address"));
                         ?>
-                            <div>
+                            <div class="mb-3 py-2 px-3 border">
                                 <p><b>Tỉnh/Thành phố:</b> <?= $arrAddres[0] ?></p>
                                 <p><b>Quận/Huyện:</b> <?= $arrAddres[1] ?></p>
                                 <p><b>Phường/Xã:</b> <?= $arrAddres[2] ?></p>
@@ -185,10 +207,20 @@
                     </div>
 
                     <!-- Phone -->
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Số điện thoại</label>
-                        <input type="tel" id="phone" name="phone" value="<?= showInforRecept("phone") ?>" class="form-control" placeholder="Nhập số điện thoại">
-                    </div>
+                    <?php
+                    if (!isset($_SESSION['inforUsedTo'])) {
+                    ?>
+                        <div class=" mb-3">
+                            <label for="phone" class="form-label">Số điện thoại</label>
+                            <input type="tel" id="phone" name="phone" value="" class="form-control" placeholder="Nhập số điện thoại">
+                        </div>
+                    <?php
+                    } else {
+                    ?>
+                        <p class="mb-3 py-2 px-3 border"><b>Số điện thoại:</b> <?= showInforRecept("phone") ?></p>
+                    <?php
+                    }
+                    ?>
 
                     <!-- Payment Method -->
                     <div class="mb-3">

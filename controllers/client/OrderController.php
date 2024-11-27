@@ -188,5 +188,14 @@ class OrderController extends Controller
             header("Location:" . $_SERVER['HTTP_REFERER']);
         }
     }
-
+    public function shippingSuccess()
+    {
+        $order_id = $_GET['order_id'];
+        $row = $this->order->update(['order_status' => 3, 'payment_status' => 1], "order_id = :order_id", ['order_id' => $order_id]);
+        if ($row > 0) {
+            $_SESSION['success'] = true;
+            $_SESSION['message'] = "Bạn đã xác nhận giao hàng thành công";
+            header("Location:" . $_SERVER['HTTP_REFERER']);
+        }
+    }
 }
