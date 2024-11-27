@@ -260,6 +260,7 @@
                         <a class="btn btn-info d-block mb-3" data-bs-toggle="offcanvas" href="#r-<?= $value['order_id'] ?>" role="button" aria-controls="offcanvasExample">
                             Xem chi tiết
                         </a>
+                        <a href="?controller=order&action=shippingSuccess&order_id=<?= $value['order_id'] ?>" class="d-block btn btn-danger" href="">Đã nhận được hàng</a>
                     </div>
                 </div>
             <?php

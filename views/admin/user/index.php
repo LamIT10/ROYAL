@@ -2,6 +2,9 @@
 // var_dump($user);
 $mode = $_GET['view'];
 ?>
+<style>
+
+</style>
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
@@ -25,8 +28,7 @@ $mode = $_GET['view'];
                     </thead>
                     <tbody>
                         <?php foreach ($user as $key => $item) : ?>
-
-                            <tr>
+                            <tr class="product">
                                 <td><?= $key + 1 ?></td>
                                 <td><?= $item['full_name'] ?></td>
                                 <td><?= $item['username'] ?></td>
@@ -70,9 +72,38 @@ $mode = $_GET['view'];
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <a href="?role=admin&controller=category&page=2">>></a>
+                <div id="pagination" class="d-flex justify-content-end align-items-center"></div>
             </div>
         </div>
     </div>
-
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const products = document.querySelectorAll(".product"); // Lấy tất cả sản phẩm
+        const itemsPerPage = 2; // Số sản phẩm mỗi trang
+        const totalPages = Math.ceil(products.length / itemsPerPage); // Tổng số trang
+        const paginationContainer = document.getElementById("pagination");
+
+        function showPage(page) {
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            products.forEach((product, index) => {
+                product.style.display = index >= start && index < end ? "table-row" : "none";
+            });
+        }
+
+        function renderPagination() {
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("button");
+                button.classList.add("btn", "border-primary", "text-primary",'m-1');
+                button.textContent = i;
+                button.onclick = function() {
+                    showPage(i);
+                };
+                paginationContainer.appendChild(button);
+            }
+        }
+        showPage(1); // Hiển thị trang đầu tiên
+        renderPagination(); // Tạo các nút phân trang
+    });
+</script>
