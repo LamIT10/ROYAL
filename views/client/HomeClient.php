@@ -1,21 +1,8 @@
-     <style>
-         a:hover {
-             text-decoration: none;
-         }
-
-         .row {
-             display: flex;
-             justify-content: space-between;
-         }
-
-         .container {
-             min-width: 90%;
-         }
-
-         .card-body{
-            padding: 0;
-         }
-     </style>
+<style>
+    .card-body{
+        padding: 0;
+    }
+</style>
      <div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
          <div class="carousel-indicators">
              <?php

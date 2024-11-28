@@ -8,8 +8,7 @@ class BannerModel extends Model
             $list = $this->select("*", "status=:status order by count", ["status" => 1]);
             return $list;
         } catch (\Throwable $th) {
-            //throw $th;
-        }
+         }
     }
     public function getOneBanner($id)
     {
