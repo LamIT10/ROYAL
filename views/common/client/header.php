@@ -32,6 +32,19 @@
             border: none;
             border-radius: 0px;
         }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .container {
+            min-width: 90%;
+        }
     </style>
 
 </head>
@@ -56,7 +69,7 @@
                         if (!$value['parent_id']) {
                     ?>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button">
+                                <a href="?controller=product&action=searchByParent&id=<?= $value['category_id'] ?>" class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button">
                                     <?php
                                     echo mb_strtoupper($value['category_name']);
                                     ?>
@@ -66,7 +79,7 @@
                                     foreach ($category as $key => $value) {
                                         if ($value['parent_id'] == $id) {
                                     ?>
-                                            <li><a class="dropdown-item fw-semibold" style="font-size: 13px" href="#"><?php echo mb_strtoupper($value['category_name']) ?></a></li>
+                                            <li><a href="?controller=product&action=searchByCategory&id=<?= $value['category_id'] ?>" class="dropdown-item fw-semibold" style="font-size: 13px" href="#"><?php echo mb_strtoupper($value['category_name']) ?></a></li>
                                     <?php
                                         }
                                     }
@@ -79,14 +92,15 @@
                     ?>
                     <li><a href="#" class="nav-link px-2 link-body-emphasis">KHO VOUCHERS</a></li>
                 </ul>
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" method="post" action="?controller=product&action=searchByName">
                     <div class="input-group">
                         <input
+                            name="key"
                             type="search"
                             class="form-control"
                             placeholder="Tìm kiếm"
                             aria-label="Tìm kiếm" />
-                        <button class="btn btn-outline-secondary" type="button">
+                        <button class="btn btn-outline-secondary" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>

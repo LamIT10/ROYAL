@@ -18,7 +18,6 @@ class HomeController extends Controller
           $category = $this->category->select("*");
           $listBanners = $this->banner->getAllBanner();
           $listView = $this->product->getProductFilterByView();
-          $rating = $this->product->getRating();
           $title = "Trang chủ";
           $content = "client/HomeClient";
           $layoutPath = "client_layout";

@@ -72,5 +72,28 @@ class ProductModel extends Model
         $list = $stmt->fetch(PDO::FETCH_ASSOC);
         return $list;
     }
-    
+    public function searchByName($key)
+    {
+        $sql = "SELECT a.product_name, a.product_id,a.image, b.base_price,b.sale_price, b.color_id, b.size_id from categories ca inner join products a on ca.category_id = a.category_id 
+            inner join variants b on a.product_id = b.product_id
+            where a.status = 1 and a.status=1 and b.variant_main =1 and a.product_name LIKE '%$key%'";
+        $list = $this->selectAll($sql);
+        return $list;
+    }
+    public function searchByCategory($id)
+    {
+        $sql = "SELECT a.product_name, a.product_id,a.image, b.base_price,b.sale_price, b.color_id, b.size_id from categories ca inner join products a on ca.category_id = a.category_id 
+            inner join variants b on a.product_id = b.product_id
+            where a.status = 1 and a.status=1 and b.variant_main =1 and a.category_id = $id";
+        $list = $this->selectAll($sql);
+        return $list;
+    }
+    public function searchByParent($id)
+    {
+        $sql = "SELECT a.product_name, a.product_id,a.image, b.base_price,b.sale_price, b.color_id, b.size_id,ca.banner from categories ca inner join products a on ca.category_id = a.category_id 
+            inner join variants b on a.product_id = b.product_id
+            where a.status = 1 and a.status=1 and b.variant_main =1 and ca.parent_id = $id";
+        $list = $this->selectAll($sql);
+        return $list;
+    }
 }

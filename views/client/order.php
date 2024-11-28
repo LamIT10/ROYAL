@@ -80,7 +80,7 @@
 <?php
 // var_dump($listOrder);
 ?>
-<div class="container py-4 bg-white mt-5" style="width:80%">
+<div class="py-4 bg-white mt-5" style="width:80%;margin:auto">
     <!-- Header -->
     <div class="text-center mb-4">
         <h3 class="fw-bold text-danger">Đơn Hàng</h3>
@@ -111,7 +111,7 @@
     </ul>
 
     <!-- Tab Content -->
-    <div class="tab-content">
+    <div class="tab-content px-4">
         <!-- Tất cả -->
         <div class="tab-pane fade" id="4">
             <?php
