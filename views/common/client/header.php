@@ -90,7 +90,7 @@
                         }
                     }
                     ?>
-                    <li><a href="#" class="nav-link px-2 link-body-emphasis">KHO VOUCHERS</a></li>
+                    <li><a href="?controller=voucher" class="nav-link px-2 link-body-emphasis">KHO VOUCHERS</a></li>
                 </ul>
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" method="post" action="?controller=product&action=searchByName">
                     <div class="input-group">
@@ -111,13 +111,12 @@
                         <small style="font-size: 13px">Đơn hàng</small>
                     </a>
                     <?php
-                    // var_dump($_SESSION['user']);
                     if (isset($_SESSION['user'])) {
                     ?>
 
                         <div class="dropdown">
                             <div class="me-2 btn btn-light dropdown-toggle">
-                                <img src="uploads/<?= $_SESSION['user']['avatar'] ?>" alt="Avatar" class="rounded-circle" width="40" height="40">
+                                <a href="?controller=account"><img src="uploads/<?= $_SESSION['user']['avatar'] ?>" alt="Avatar" class="rounded-circle" width="40" height="40"></a>
                             </div>
 
                             <ul class="dropdown-menu">

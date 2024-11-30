@@ -18,5 +18,9 @@ class CommentModel extends Model
         on a.user_id = b.user_id where a.product_id = $product_id";
         return $this->selectAll($sql);
     }
-    
+    public function getAll()
+    {
+        $sql = "SELECT b.*,count(a.comment_id) as total FROM comments a inner join products b on a.product_id = b.product_id group by a.product_id";
+        return $this->selectAll($sql);
+    }
 }

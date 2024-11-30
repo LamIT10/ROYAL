@@ -16,8 +16,15 @@ class VoucherModel extends Model
             $stmt->execute();
             return $stmt->rowCount();
       }
-      public function checkVoucherUsed($id,$user_id){
+      public function checkVoucherUsed($id, $user_id)
+      {
             $sql = "SELECT * FROM vouchers_was_used where voucher_id = $id and user_id = $user_id";
+            $list = $this->selectAll($sql);
+            return $list;
+      }
+      public function checkVoucherUsedByUser($user_id)
+      {
+            $sql = "SELECT * FROM vouchers_was_used a inner join vouchers b on a.voucher_id = b.voucher_id where user_id = $user_id";
             $list = $this->selectAll($sql);
             return $list;
       }

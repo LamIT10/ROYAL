@@ -16,3 +16,22 @@ function renderStar($rating)
     }
     return $output;
 }
+function authLogin($controller)
+{
+    $listNeedLogin = [
+        'cart',
+        'checkout',
+        'account',
+        'comment',
+        'logout',
+        'order'
+    ];
+
+    if (in_array($controller, $listNeedLogin)) {
+        if (!isset($_SESSION['user'])) {
+            $_SESSION['success'] = false;
+            $_SESSION['message'] = 'Vui lòng đăng nhập để sử dụng chức năng này';
+            header('Location: ?controller=login');
+        }
+    }
+}
