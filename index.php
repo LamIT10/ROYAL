@@ -1,11 +1,15 @@
 <?php
 session_start();
-// var_dump($_SESSION['user']);
+
 require 'bootstrap.php';
 
 $role = $_GET['role'] ?? 'client';
 
-$controllerName = ucfirst(strtolower($_GET['controller'] ?? 'home')) . "Controller";
+$controllerCheckAuth = $_GET['controller'] ?? 'home';
+
+authLogin($controllerCheckAuth);
+
+$controllerName = ucfirst(strtolower($controllerCheckAuth)) . "Controller";
 
 $controllerPath = "controllers/$role/$controllerName.php";
 

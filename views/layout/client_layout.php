@@ -58,5 +58,6 @@
     require VIEW_FOLDER . "common/client/header.php";
     getToast();
     require $content;
+    if (!empty($_SESSION['error'])) unset($_SESSION['error']);
     require VIEW_FOLDER . "common/client/footer.php";
     ?>

@@ -20,18 +20,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            background-image: url(uploads/bg-login2.jpg);
+            background-size: cover;
             margin: 0;
             font-family: Arial, sans-serif;
         }
 
         .login-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            background-color: rgb(255, 255, 255, 0.5);
+            border-radius: 5px;
         }
 
         .login-container h3 {
@@ -46,7 +46,7 @@
         }
 
         .btn-custom {
-            background: #333;
+            background: linear-gradient(to-right, black, #555B6B, #504E3C, #C6B3A2);
             color: white;
             border-radius: 10px;
         }
@@ -118,28 +118,31 @@
             color: red;
             background-color: white;
         }
+
+        input {
+            padding: 5px;
+
+        }
     </style>
 </head>
 
 <body>
     <?= getToast() ?>
     <div class="login-container">
-        <h3>Welcome Back</h3>
+        <h3 class="" style="font-size: 100px;border-radius: 50%;color:#C6B3A2"><i class="fa-solid fa-circle-user"></i></h3>
         <form action="?controller=login&action=checkLogin" method="POST">
             <!-- Email Field -->
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" <?= getData('email') ?> id="email" name="email" placeholder="Enter your email">
+            <div class="mb-5">
+                <input type="email" class="form-control" style="padding:25px; border-radius: 0px;" <?= getData('email') ?> id="email" name="email" placeholder="Enter your email">
             </div>
             <!-- Password Field -->
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+            <div class="mb-5">
+                <input type="password" class="form-control" style="padding:25px; border-radius: 0px;" id="password" name="password" placeholder="Enter your password">
             </div>
             <!-- Login Button -->
-            <button type="submit" class="btn btn-custom w-100">Login</button>
+            <button type="submit" class="btn btn-custom w-100 p-2" style="border-radius: 0px;">Login</button>
             <!-- Forgot Password and Signup Links -->
-            <div class="text-center mt-3">
+            <div class="text-center mt-5">
                 <a href="/forgot-password" class="link-custom">Forgot Password?</a>
                 <span> | </span>
                 <a href="/register" class="link-custom">Sign Up</a>

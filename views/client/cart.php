@@ -1,14 +1,7 @@
 <?php
-// var_dump($cart);
-
 $total = 0;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // echo "<pre>";
-    // var_dump($_POST);
-    // echo "</pre>";
-    // die;
     if ($_POST['check'] == 'on') {
-
         $_SESSION['cart']["$_POST[detail_id]"] = $_POST['detail_id'];
     } else {
         unset($_SESSION['cart']["$_POST[detail_id]"]);
