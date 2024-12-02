@@ -24,9 +24,9 @@ function authLogin($controller)
         'account',
         'comment',
         'logout',
-        'order'
+        'order',
+        'voucher',
     ];
-
     if (in_array($controller, $listNeedLogin)) {
         if (!isset($_SESSION['user'])) {
             $_SESSION['success'] = false;

@@ -35,4 +35,13 @@ class OrderController extends Controller
         }
         header("Location: ?role=admin&controller=order");
     }
+    public function detail(){
+        $id = $_GET['id'];
+        $list = $this->order->getOrderDetailByOrderId($id);
+        $content = "admin/order/show";
+        $layoutPath = "admin_layout";
+        $title = "Chi tiết đơn hàng";
+        $this->renderView($layoutPath, $content, ["title" => $title, "list" => $list]);
+    }
+    
 }

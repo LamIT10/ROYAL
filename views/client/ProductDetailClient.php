@@ -145,22 +145,24 @@ $product = $productDetail['product'][0];
             </div>
             <div class="mt-3">
                 <?php
-                if ($productDetail['addToCart']) {
+                if (isset($_SESSION['user'])) {
+                    if ($productDetail['addToCart']) {
                 ?>
-                    <form action="?controller=cart&action=store" method="post">
-                        <div class="mt-3">
-                            Sản phẩm được chọn: <b class="text-primary fw-bold"><?= $product['color_name'] ?> - <?= $product['size_name'] ?></b>
-                        </div>
-                        <p class="mt-3">Số lượng sản phẩm còn: <b class="text-primary fw-bold"><?= $product['quantity'] ?></b></p>
-                        <input type="hidden" name="variant_id" value="<?= $product['variant_id'] ?>">
-                        <label for="quantity_cart">Số lượng:</label><br>
-                        <input type="number" class="form-control w-25 d-inline" min="1" value="1" id="quantity_cart" name="quantity_cart">
-                        <br>
-                        <button type="submit" name="addCart" class="btn btn-orange w-100 mt-3">Add to cart</button>
-                    </form>
+                        <form action="?controller=cart&action=store" method="post">
+                            <div class="mt-3">
+                                Sản phẩm được chọn: <b class="text-primary fw-bold"><?= $product['color_name'] ?> - <?= $product['size_name'] ?></b>
+                            </div>
+                            <p class="mt-3">Số lượng sản phẩm còn: <b class="text-primary fw-bold"><?= $product['quantity'] ?></b></p>
+                            <input type="hidden" name="variant_id" value="<?= $product['variant_id'] ?>">
+                            <label for="quantity_cart">Số lượng:</label><br>
+                            <input type="number" class="form-control w-25 d-inline" min="1" value="1" id="quantity_cart" name="quantity_cart">
+                            <br>
+                            <button type="submit" name="addCart" class="btn btn-orange w-100 mt-3">Add to cart</button>
+                        </form>
                 <?php
-                } else {
-                    echo "<button type='submit' name='addCart' class='btn btn-secondary w-100 mt-3'>Vui lòng chọn lại size</button>";
+                    } else {
+                        echo "<button type='submit' name='addCart' class='btn btn-secondary w-100 mt-3'>Vui lòng chọn lại size</button>";
+                    }
                 }
                 ?>
             </div>
@@ -189,9 +191,9 @@ $product = $productDetail['product'][0];
                             </div>
                         </div>
                         <?php
-                        if ($_SESSION['user']['user_id'] == $value['user_id']) {
+                        if (isset($_SESSION['user']) && $_SESSION['user']['user_id'] == $value['user_id']) {
                         ?>
-                            <button style="position: absolute; top: 0; right: 15;" class="btn btn-link text-danger p-0 mt-2 delete-btn">Xoá bình luận</button>
+                            <a href="?controller=comment&action=delete&id=<?= $value['comment_id'] ?>" style="position: absolute; top: 0; right: 15;" class="btn btn-link text-danger p-0 mt-2 delete-btn">Xoá bình luận</a>
                         <?php
                         }
                         ?>
