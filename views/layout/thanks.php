@@ -128,27 +128,7 @@
 
 <body>
     <?= getToast() ?>
-    <div class="login-container">
-        <h3 class="my-4" style="font-size: 30px;border-radius: 50%;color:#C65">Welcome back</h3>
-        <form action="?controller=login&action=checkLogin" method="POST">
-            <!-- Email Field -->
-            <div class="mb-5">
-                <input type="email" class="form-control" style="padding:25px; border-radius: 5px;border:none" <?= getData('email') ?> id="email" name="email" placeholder="Enter your email">
-            </div>
-            <!-- Password Field -->
-            <div class="mb-5">
-                <input type="password" class="form-control" style="padding:25px; border-radius: 5px;border:none" id="password" name="password" placeholder="Enter your password">
-            </div>
-            <!-- Login Button -->
-            <button type="submit" class=" btn-custom w-100 p-2" style="border-radius: 5px;">Login</button>
-            <!-- Forgot Password and Signup Links -->
-            <div class="text-center mt-5">
-                <a href="/forgot-password" class="link-custom">Forgot Password?</a>
-                <span> | </span>
-                <a href="?controller=register" class="link-custom">Sign Up</a>
-            </div>
-        </form>
-    </div>
+    <div>Cảm ơn bạn đã mua sắm tại ROYAL</div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

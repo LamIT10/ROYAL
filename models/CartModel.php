@@ -56,4 +56,12 @@ class CartModel extends Model
         $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $list;
     }
+    public function removeCartDetail($data = [])
+    {
+        $data = implode(",", $data);
+        $sql = "DELETE FROM cart_details where detail_id IN ($data)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
 }

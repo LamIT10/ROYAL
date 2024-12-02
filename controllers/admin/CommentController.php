@@ -15,4 +15,19 @@ class CommentController extends Controller
         $layoutPath = "admin_layout";
         $this->renderView($layoutPath, $content, ['list' => $list, 'title' => $title]);
     }
+    public function detail()
+    {
+        $title = "Chi tiết bình luận";
+        $list = $this->comment->getCommentDetail($_GET['id']);
+        $content = "admin/comment/detail";
+        $layoutPath = "admin_layout";
+        $this->renderView($layoutPath, $content, ['list' => $list, 'title' => $title]);
+    }
+    public function delete()
+    {
+        $this->comment->delete("comment_id = :comment_id", ["comment_id" => $_GET['id']]);
+        $_SESSION['success'] = true;
+        $_SESSION['message'] = "Xóa bình luận thành công";
+        header("Location:" . $_SERVER['HTTP_REFERER']);
+    }
 }

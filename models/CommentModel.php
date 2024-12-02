@@ -20,7 +20,11 @@ class CommentModel extends Model
     }
     public function getAll()
     {
-        $sql = "SELECT b.*,count(a.comment_id) as total FROM comments a inner join products b on a.product_id = b.product_id group by a.product_id";
+        $sql = "SELECT b.*,MAX(a.create_at) as newest,MIN(a.create_at) as oldest,count(a.comment_id) as total FROM comments a inner join products b on a.product_id = b.product_id group by a.product_id";
+        return $this->selectAll($sql);
+    }
+    public function getCommentDetail($id){
+        $sql = "SELECT * FROM comments inner join users where product_id = $id and comments.user_id = users.user_id";
         return $this->selectAll($sql);
     }
 }

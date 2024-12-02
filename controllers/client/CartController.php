@@ -79,5 +79,28 @@ class CartController extends Controller
         }
         header("location: {$_SERVER['HTTP_REFERER']}");
     }
-    
+    public function changeQuantity()
+    {
+        try {
+            $data = $_POST;
+            $product = $this->variant->getVariant($data['variant_id']); // lấy ra variant muốn thêm vào
+            if ($data['quantity_cart'] > $product['quantity']) {
+                throw new Exception("Số lượng sản phẩm không hợp lệ!");
+            }
+            if ($data['quantity_cart'] > 0) {
+                $row = $this->cart->updateQuantity(['quantity_cart' => $data['quantity_cart'], 'detail_id' => $_GET['id']]);
+                if ($row > 0) {
+                    $_SESSION['success'] = true;
+                    $_SESSION['message'] = "Cập nhật thành công";
+                }else{
+                    $_SESSION['success'] = false;
+                    $_SESSION['message'] = "Cập nhật KHÔNG thành công";
+                }
+            }
+        } catch (\Throwable $th) {
+            $_SESSION['success'] = false;
+            $_SESSION['message'] = $th->getMessage();
+        }
+        header("location: {$_SERVER['HTTP_REFERER']}");
+    }
 }

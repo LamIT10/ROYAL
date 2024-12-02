@@ -46,4 +46,11 @@ class CommentController extends Controller
             throw $th;
         }
     }
+    public function delete()
+    {
+        $this->comment->delete("comment_id = :comment_id", ["comment_id" => $_GET['id']]);
+        $_SESSION['success'] = true;
+        $_SESSION['message'] = "Xóa bình luận thành công";
+        header("Location:" . $_SERVER['HTTP_REFERER']);
+    }
 }

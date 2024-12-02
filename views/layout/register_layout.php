@@ -128,29 +128,72 @@
 
 <body>
     <?= getToast() ?>
-    <div class="login-container">
-        <h3 class="my-4" style="font-size: 30px;border-radius: 50%;color:#C65">Welcome back</h3>
-        <form action="?controller=login&action=checkLogin" method="POST">
-            <!-- Email Field -->
-            <div class="mb-5">
-                <input type="email" class="form-control" style="padding:25px; border-radius: 5px;border:none" <?= getData('email') ?> id="email" name="email" placeholder="Enter your email">
+    <div class="container">
+        <form action="?controller=register&action=store" method="post" enctype="multipart/form-data" class="shadow-sm mx-auto my-5" style="width: 70%; background-color: rgb(255, 255, 255, 0.8); border-radius: 8px; padding: 50px">
+            <h3 class="mb-3" style="font-size: 25px;color:#C65">Đăng ký</h3>
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="username" class="form-label">Tên đăng nhập:</label>
+                    <input type="text" class="form-control" <?php getData('username') ?> id="username" name="username">
+                    <p><?php getErorr('username') ?></p>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="password" class="form-label">Mật khẩu:</label>
+                    <input type="password" class="form-control" <?php getData('password') ?> id="password" name="password">
+                    <p><?php getErorr('password') ?></p>
+                </div>
             </div>
-            <!-- Password Field -->
-            <div class="mb-5">
-                <input type="password" class="form-control" style="padding:25px; border-radius: 5px;border:none" id="password" name="password" placeholder="Enter your password">
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="address" class="form-label">Địa chỉ:</label>
+                    <input type="text" class="form-control" <?php getData('address') ?> id="address" name="address">
+                    <p><?php getErorr("address") ?></p>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="date_of_birth" class="form-label">Ngày sinh:</label>
+                    <input type="date" class="form-control" <?php getData('date_of_birth') ?> id="date_of_birth" name="date_of_birth">
+                    <p><?php getErorr("date_of_birth") ?></p>
+                </div>
+
             </div>
-            <!-- Login Button -->
-            <button type="submit" class=" btn-custom w-100 p-2" style="border-radius: 5px;">Login</button>
-            <!-- Forgot Password and Signup Links -->
-            <div class="text-center mt-5">
-                <a href="/forgot-password" class="link-custom">Forgot Password?</a>
-                <span> | </span>
-                <a href="?controller=register" class="link-custom">Sign Up</a>
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="full_name" class="form-label">Họ và tên:</label>
+                    <input type="text" class="form-control" <?php getData('full_name') ?> id="full_name" name="full_name">
+                    <p><?php getErorr("full_name") ?></p>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="avatar" class="form-label">Ảnh đại diện:</label>
+                    <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
+                    <p><?php getErorr("avatar") ?></p>
+                </div>
+
             </div>
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="phone" class="form-label">Số điện thoại:</label>
+                    <input type="tel" class="form-control" <?php getData('phone') ?> id="phone" name="phone">
+                    <p><?php getErorr("phone") ?></p>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="text" class="form-control" <?php getData('email') ?> id="email" name="email">
+                    <p><?php getErorr("email") ?></p>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" style="background: linear-gradient(to right, black, #555B6B, #504E3C, #C6B3A2);">Đăng ký</button>
         </form>
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<?php
+if (!empty($_SESSION['error'])) unset($_SESSION['error']);
+?>
 
 </html>

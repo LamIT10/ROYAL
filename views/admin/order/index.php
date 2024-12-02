@@ -136,7 +136,7 @@
                         </tr>
                     </table>
                     <div class="d-flex align-item-end flex-column">
-                        <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
+                        <a href="?role=admin&controller=order&action=detail&id=<?= $value['order_id'] ?>" class="btn bg-warning d-block text-white mb-3">Xem chi tiết</a>
                     </div>
                 </div>
             <?php
@@ -199,7 +199,7 @@
                             </tr>
                         </table>
                         <div class="d-flex align-item-end flex-column">
-                            <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
+                            <a href="?role=admin&controller=order&action=detail&id=<?= $value['order_id'] ?>" class="btn bg-warning d-block text-white mb-3">Xem chi tiết</a>
                             <a class="btn btn-primary d-block" href="?role=admin&controller=order&action=buttonChangeStatus&status=<?= $value['order_status'] ?>&id=<?= $value['order_id'] ?>">Xác nhận đơn hàng</a>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                         </tr>
                     </table>
                     <div class="d-flex align-item-end flex-column">
-                        <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
+                        <a href="?role=admin&controller=order&action=detail&id=<?= $value['order_id'] ?>" class="btn bg-warning d-block text-white mb-3">Xem chi tiết</a>
                         <a class="btn btn-primary d-block" href="?role=admin&controller=order&action=buttonChangeStatus&status=<?= $value['order_status'] ?>&id=<?= $value['order_id'] ?>">Bắt đầu vận chuyển</a>
                     </div>
                 </div>
@@ -325,7 +325,7 @@
                         </tr>
                     </table>
                     <div class="d-flex align-item-end flex-column">
-                        <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
+                        <a href="?role=admin&controller=order&action=detail&id=<?= $value['order_id'] ?>" class="btn bg-warning d-block text-white mb-3">Xem chi tiết</a>
                         <a class="btn btn-primary d-block" href="?role=admin&controller=order&action=buttonChangeStatus&status=<?= $value['order_status'] ?>&id=<?= $value['order_id'] ?>">Xác nhận giao hàng thành công</a>
                     </div>
                 </div>
@@ -392,7 +392,7 @@
                         </tr>
                     </table>
                     <div class="d-flex align-item-end flex-column">
-                        <button class="btn bg-warning d-block text-white mb-3">Xem chi tiết</button>
+                        <a href="?role=admin&controller=order&action=detail&id=<?= $value['order_id'] ?>" class="btn bg-warning d-block text-white mb-3">Xem chi tiết</a>
                         <a class="btn btn-primary d-block" href="?role=admin&controller=order&action=buttonChangeStatus&status=' . $item['order_status'] . '&id=' . $item['order_id'] . '">Xác nhận đơn hàng</a>
                     </div>
                 </div>

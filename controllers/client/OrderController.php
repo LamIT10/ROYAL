@@ -66,23 +66,25 @@ class OrderController extends Controller
                     "price" => $value['sale_price']
                 ];
                 $this->order->insert2($dataOrderDetail, "order_details");
+                $this->cart->removeCartDetail($_SESSION['cart']);
                 if (isset($_SESSION['inforUsedTo'])) {
                     unset($_SESSION['inforUsedTo']);
                 }
+                $_SESSION['cart'] = [];
                 unset($_SESSION['dataOrder']);
                 unset($_SESSION['voucher']);
-                $_SESSION['success'] = true;
-                $_SESSION['message'] = "Đặt hàng thành công";
             }
             if (isset($voucher_id)) {
                 $this->voucher->decrease($voucher_id);
                 $this->voucher->addToTableUsedTo($voucher_id, $_SESSION['user']['user_id']);
             }
+            $_SESSION['success'] = true;
+            $_SESSION['message'] = "Đặt hàng thành công";
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['message'] = $th->getMessage();
         }
-        header("Location: " . $_SERVER['HTTP_REFERER']);
+        header("Location: index.php");
     }
     public function store()
     {
