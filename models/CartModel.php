@@ -6,7 +6,10 @@ class CartModel extends Model
     {
         $sql = "SELECT * from carts ca inner join cart_details cd on ca.cart_id = cd.cart_id 
         inner join variants v on v.variant_id = cd.variant_id 
-        inner join products p on p.product_id = v.product_id where ca.user_id = {$_SESSION['user']['user_id']}";
+        inner join products p on p.product_id = v.product_id
+        inner join colors c 
+        on v.color_id = c.color_id inner join sizes s on v.size_id = s.size_id
+        where ca.user_id = {$_SESSION['user']['user_id']}";
         $listProduct = $this->selectAll($sql);
         return $listProduct;
     }
@@ -39,7 +42,10 @@ class CartModel extends Model
     {
         $sql = "SELECT * from carts ca inner join cart_details cd on ca.cart_id = cd.cart_id 
         inner join variants v on v.variant_id = cd.variant_id 
-        inner join products p on p.product_id = v.product_id where cd.detail_id = $id";
+        inner join products p on p.product_id = v.product_id 
+        inner join colors c 
+        on v.color_id = c.color_id inner join sizes s on v.size_id = s.size_id
+        where cd.detail_id = $id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $list = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -50,7 +56,9 @@ class CartModel extends Model
         $data = implode(",", $data);
         $sql = "SELECT * from carts ca inner join cart_details cd on ca.cart_id = cd.cart_id 
         inner join variants v on v.variant_id = cd.variant_id 
-        inner join products p on p.product_id = v.product_id where cd.detail_id IN ($data)";
+        inner join products p on p.product_id = v.product_id inner join colors c 
+        on v.color_id = c.color_id inner join sizes s on v.size_id = s.size_id
+        where cd.detail_id IN ($data)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $list = $stmt->fetchAll(PDO::FETCH_ASSOC);

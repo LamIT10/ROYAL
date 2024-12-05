@@ -9,7 +9,7 @@ class CategoryController extends Controller
     }
     public function index()
     {
-        $category = $this->category->getAllDividePage();
+        $category = $this->category->getAllCategory();
         $title = "Danh sách danh mục";
         $content = "admin/category/index";
         $layoutPath = "admin_layout";

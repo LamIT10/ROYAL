@@ -23,8 +23,7 @@ $count = count($_SESSION['cart']) > 1 ? '(' . count($_SESSION['cart']) . ')' : '
             <?php
             if (!empty($cart)) {
                 foreach ($cart as $key => $value) : ?>
-                    <div class="">
-
+                    <div>
                         <!-- Sản phẩm trong giỏ -->
                         <div class="card mb-2 py-3">
 
@@ -44,7 +43,7 @@ $count = count($_SESSION['cart']) > 1 ? '(' . count($_SESSION['cart']) . ')' : '
                                             <p class="text-danger fs-6 mb-0"><b><?= number_format($value['sale_price']) ?> VNĐ </b><del class="text-secondary"><?= number_format($value['base_price']) ?> VNĐ</del></p>
                                         </div>
                                         <div class="d-flex align-items-center">
-                                            <span class="badge bg-light text-dark"><?= $value['color_id'] ?> <?= $value['size_id'] ?></span>
+                                            <span class="badge bg-light text-dark"><span class="bi bi-circle-fill mr-1" style="color:<?= $value['color_code'] ?>"></span><?= $value['color_name'] ?> | <?= $value['size_name'] ?></span>
                                             <div class="ms-auto">
                                                 <form action="?controller=cart&action=changeQuantity&id=<?= $value['detail_id'] ?>" method="post" class="d-flex mt-3">
                                                     <div class="d-flex align-items-center">
@@ -53,7 +52,7 @@ $count = count($_SESSION['cart']) > 1 ? '(' . count($_SESSION['cart']) . ')' : '
                                                         <input style="width: 50px;" type="text" id="quantity" name="quantity_cart" class="form-control mx-2 text-center" value="<?= $value['quantity_cart'] ?>">
                                                         <button type="button" class="btn btn-outline-success" onclick="updateQuantity(1)">+</button>
                                                     </div>
-                                                    <button id="btn-edit" class="btn btn-outline-primary btn-sm ms-3 d-none">Edit</button>
+                                                    <button id="btn-edit" class="btn btn-outline-primary btn-sm ms-3">Edit</button>
 
                                                 </form>
 
@@ -65,16 +64,15 @@ $count = count($_SESSION['cart']) > 1 ? '(' . count($_SESSION['cart']) . ')' : '
                             </div>
                         </div>
                     </div>
-            <?php
+                <?php
                     if (in_array($value['detail_id'], $_SESSION['cart'])) {
                         $total += $value['sale_price'] * $value['quantity_cart'];
                     }
                 endforeach;
-            }
-            else {
+            } else {
                 ?>
                 <div class="text-center px-5 py-4 fs-5" style="background-color: white;">Giỏ hàng của bạn đang trống</div>
-                <?php
+            <?php
             }
             ?>
         </div>
@@ -142,8 +140,6 @@ $count = count($_SESSION['cart']) > 1 ? '(' . count($_SESSION['cart']) . ')' : '
 </div>
 <script>
     function updateQuantity(change) {
-        btnEdit = document.getElementById('btn-edit');
-        btnEdit.classList.remove('d-none');
         const quantityInput = document.getElementById('quantity');
         let currentQuantity = parseInt(quantityInput.value) || 0;
 
