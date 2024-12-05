@@ -5,47 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
         rel="stylesheet" />
     <link
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
         rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <style>
-        .dropdown:hover .dropdown-menu {
-            display: block;
-            margin-top: 0;
-        }
+</head>
+<style>
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
 
-        a {
-            text-decoration: none;
-            color: black;
-        }
+    a {
+        text-decoration: none;
+        color: black;
+    }
 
-        .card {
-            border: none;
-            border-radius: 0px;
-        }
+    .card {
+        border: none;
+        border-radius: 0px;
+    }
 
-        a:hover {
-            text-decoration: none;
-        }
+    a:hover {
+        text-decoration: none;
+    }
 
-        .row {
-            display: flex;
-            justify-content: space-between;
-        }
+    .row {
+        display: flex;
+        justify-content: space-between;
+    }
 
-        .container {
-            min-width: 90%;
-        }
-    </style>
+    .container {
+        min-width: 90%;
+    }
+</style>
 
 </head>
 
@@ -120,8 +126,14 @@
                             </div>
 
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Setting</a></li>
                                 <li><a class="dropdown-item" href="?controller=logout">Logout</a></li>
+                                <?php
+                                if (($_SESSION['user']['role_id'] == 1 || $_SESSION['user']['role_id'] == 2) && isset($_SESSION['user'])) {
+                                ?>
+                                    <li><a class="dropdown-item" href="?role=admin">Truy cập trang quản trị</a></li>
+                                <?php
+                                }
+                                ?>
                             </ul>
                         </div>
                     <?php

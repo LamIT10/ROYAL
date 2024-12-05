@@ -5,7 +5,7 @@ class CategoryModel extends Model
     public function getAllCategory()
     {
         try {
-            $list = $this->select("*", "status = :status", ["status" => 1]);
+            $list = $this->select("*");
             return $list;
         } catch (\Throwable $th) {
             echo $th;

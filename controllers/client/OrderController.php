@@ -6,6 +6,7 @@ class OrderController extends Controller
     public $inforRecept;
     public $voucher;
     public $category;
+    public $variant;
     public function __construct()
     {
         $this->loadModel("OrderModel");
@@ -18,6 +19,8 @@ class OrderController extends Controller
         $this->voucher = new VoucherModel();
         $this->loadModel("CategoryModel");
         $this->category = new CategoryModel();
+        $this->loadModel("VariantModel");
+        $this->variant = new VariantModel();
     }
     public function index()
     {
@@ -32,11 +35,18 @@ class OrderController extends Controller
     public function createOrder($payment_method, $payment_status)
     {
         try {
+
             if (isset($_SESSION['voucher']))
                 $voucher_id = $_SESSION['voucher']['voucher_id'];
             else $voucher_id = null;
 
             $list = $this->cart->getCartDetailByArrayId($_SESSION['cart']);
+            foreach ($list as $key => $value) {
+                $inStock = $this->variant->selectOne("quantity", "variant_id = :variant_id", ["variant_id" => $value['variant_id']]);
+                if ($value['quantity_cart'] > $inStock['quantity']) {
+                    throw new Exception("Một số sản phẩm trong giỏ hàng hiện có số lượng không hợp lệ!", 1);
+                }
+            }
             if (isset($_SESSION['inforUsedTo'])) {
                 $idInforLast = $this->inforRecept->selectOne("infor_id", "infor_id = :infor_id", ["infor_id" => $_SESSION['inforUsedTo']['infor_id']])['infor_id'];
             } else {
@@ -78,11 +88,16 @@ class OrderController extends Controller
                 $this->voucher->decrease($voucher_id);
                 $this->voucher->addToTableUsedTo($voucher_id, $_SESSION['user']['user_id']);
             }
+            
             $_SESSION['success'] = true;
             $_SESSION['message'] = "Đặt hàng thành công";
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['message'] = $th->getMessage();
+            if ($th->getCode() == 1) {
+                header("Location: ?controller=cart");
+                exit();
+            }
         }
         header("Location: index.php");
     }

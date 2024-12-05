@@ -251,7 +251,7 @@
                                 <img style="width: 80px;" src="uploads/<?= $value['image_main'] ?>" class="img-fluid" alt="Product Image">
                                 <div class="ms-3">
                                     <h6 class="mb-1"><?= $value['product_name'] ?></h6>
-                                    <p class="mb-1 text-secondary small">Navy, S</p>
+                                    <p class="mb-1 text-secondary small"><?= $value['color_name'] ?>, <?= $value['size_name'] ?></p>
                                     <div class="text-danger fw-bold">
                                         <?php echo number_format($value['sale_price']) . " VNĐ" ?> <del class="text-muted"><?php echo number_format($value['base_price']) . " VNĐ" ?></del>
                                     </div>

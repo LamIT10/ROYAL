@@ -73,7 +73,7 @@ class RegisterController extends Controller
                 unset($_SESSION['data']);
                 $_SESSION['success'] = true;
                 $_SESSION['message'] = "Đăng kí thành công!";
-                $_SESSION['user'] = $this->account->selectOne("*", "id=:id", ["id" => $insertId]);
+                $_SESSION['user'] = $this->account->selectOne("*", "user_id=:id", ["id" => $insertId]);
                 header("location:index.php");
             } else {
                 throw new Exception("Đăng kí không thành công");
