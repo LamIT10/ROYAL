@@ -128,9 +128,32 @@
 
 <body>
     <?= getToast() ?>
-    <div>Cảm ơn bạn đã mua sắm tại ROYAL</div>
-    <!-- Bootstrap JS -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header text-center bg-warning text-dark">
+                        <h4>Xác Nhận Mã OTP</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="?controller=login&action=checkOtp" method="post">
+                            <div class="mb-3">
+                                <label for="otpCode" class="form-label">Mã OTP</label>
+                                <input type="text" class="form-control" name="otp" id="otpCode" placeholder="Nhập mã OTP">
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" name="btn-to-otp" class="btn btn-warning">Xác Nhận OTP</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<?php
+if (!empty($_SESSION['error'])) unset($_SESSION['error']);
+?>
 
 </html>
