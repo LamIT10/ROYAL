@@ -128,29 +128,26 @@
 
 <body>
     <?= getToast() ?>
-    <div class="login-container">
-        <h3 class="my-4" style="font-size: 30px;border-radius: 50%;color:#C65">Welcome back</h3>
-        <form action="?controller=login&action=checkLogin" method="POST">
-            <!-- Email Field -->
-            <div class="mb-5">
-                <input type="email" class="form-control" style="padding:25px; border-radius: 5px;border:none" <?= getData('email') ?> id="email" name="email" placeholder="Enter your email">
+    <div class="container w-50">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-center">Gửi mã xác thực qua email</h5>
+                <form action="?controller=login&action=sendEmail" method="post" class="py-4 px-3">
+                    <div class="mb-4">
+                        <label for="emailInput" class="form-label">Email của bạn</label>
+                        <input type="text" class="form-control" name="email" id="emailInput" placeholder="Nhập email của bạn">
+                    </div>
+                    <button type="submit"  class="btn btn-primary w-100">Gửi OTP</button>
+                </form>
             </div>
-            <!-- Password Field -->
-            <div class="mb-5">
-                <input type="password" class="form-control" style="padding:25px; border-radius: 5px;border:none" id="password" name="password" placeholder="Enter your password">
-            </div>
-            <!-- Login Button -->
-            <button type="submit" class=" btn-custom w-100 p-2" style="border-radius: 5px;">Login</button>
-            <!-- Forgot Password and Signup Links -->
-            <div class="text-center mt-5">
-                <a href="?controller=login&action=forgotPass" class="link-custom">Forgot Password?</a>
-                <span> | </span>
-                <a href="?controller=register" class="link-custom">Sign Up</a>
-            </div>
-        </form>
+        </div>
     </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<?php
+if (!empty($_SESSION['error'])) unset($_SESSION['error']);
+?>
 
 </html>

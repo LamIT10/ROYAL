@@ -114,11 +114,11 @@ class OrderController extends Controller
     public function vnpayment($final_price)
     {
         require_once "config/config.php";
-        $vnp_TxnRef = "ROYAL" . time(); //Mã giao dịch thanh toán tham chiếu của merchant
-        $vnp_Amount = $_POST['final_price']; // Số tiền thanh toán
-        $vnp_Locale = 'vn'; //Ngôn ngữ chuyển hướng thanh toán
-        $vnp_BankCode = "NCB"; //Mã phương thức thanh toán
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán
+        $vnp_TxnRef = "ROYAL" . time(); 
+        $vnp_Amount = $_POST['final_price']; 
+        $vnp_Locale = 'vn'; 
+        $vnp_BankCode = "NCB"; 
+        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
 
         $inputData = array(
             "vnp_Version" => "2.1.0",
@@ -187,12 +187,12 @@ class OrderController extends Controller
             } else {
                 $_SESSION['success'] = false;
                 $_SESSION['message'] = "Giao dịch không thành công: " . $_GET['vnp_Message'];
-                header("Location: /order-summary");
+                header("Location: index.php");
             }
         } else {
             $_SESSION['success'] = false;
             $_SESSION['message'] = "Có lỗi xảy ra trong quá trình xác minh giao dịch.";
-            header("Location: /order-summary");
+            header("Location: index.php");
         }
     }
     public function cancelOrder()
