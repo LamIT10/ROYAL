@@ -35,4 +35,15 @@ function authLogin($controller)
         }
     }
 }
+function divideAdmin($controller){
+    $listOwnerOnly = [
+        'banner',
+        'user'
+    ];
+    if (in_array($controller, $listOwnerOnly)) {
+        if(isset($_SESSION['user']) && $_SESSION['user']['role_id'] != 1){
+            header('Location: ?role=admin');
+        }
+    }
+}
 

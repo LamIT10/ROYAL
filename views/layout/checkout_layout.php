@@ -79,7 +79,6 @@
 <body>
     <?php
     getToast();
-    // var_dump($_SESSION['cart']);
     $final_price = 0;
     if ($totalFinal > 0) {
         if ($totalPrice > 500000) {
@@ -93,16 +92,13 @@
         } else {
             $final_price = $totalPrice;
         }
-    }
-    // echo $final_price;
-    ?>
+    }    ?>
     <div class="container my-5">
         <div class="row">
             <!-- Form bên trái -->
             <div class="col-md-7" style="padding:0 50px 0 70px;">
                 <?php
                 if (!empty($inforUsedTo)) {
-                    // echo "<div class='bg-primary rounded-sm py-2 px-4 text-white'><b>Thông tin bạn đã sử dụng</b></div>";
                     echo "<div class='accordion p-3 p-1' style='background-color: #E3EEFF' id='accordionExample'>";
                     echo "<h5 class='mb-3 fs-6 text-primary'>Thông tin bạn đã sử dụng</h5>";
                     foreach ($inforUsedTo as $key => $value) {
@@ -261,13 +257,10 @@
                         <?php
                         }
                         ?>
-                        <!-- Sản phẩm 2 -->
                     </div>
 
-                    <!-- Cột Chi tiết thanh toán -->
                     <div class="bg-white p-3">
                         <h5 class="mb-4 fs-6">Chi tiết thanh toán</h5>
-                        <!-- Mã giảm giá -->
                         <form action="?controller=checkout&action=addVoucher" method="POST" class="d-flex justify-content-between align-items-center p-3 mb-3" style="background-color: #e3eeff;">
                             <div class="text-warning fw-bold">
                                 <input type="text" value="<?php if (isset($_SESSION['voucher'])) echo $_SESSION['voucher']['voucher_code']; ?>" class="form-control border-0 rounded-0" name="voucher_code" placeholder="Nhập mã giảm giá" id="">
@@ -284,7 +277,6 @@
                             }
                             ?>
                         </form>
-                        <!-- Tổng giá trị sản phẩm -->
                         <ul class="list-unstyled">
                             <li class="d-flex justify-content-between py-2 px-3">
                                 <span>Tổng giá trị sản phẩm:</span>

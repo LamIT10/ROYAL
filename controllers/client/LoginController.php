@@ -31,6 +31,8 @@ class LoginController extends Controller
             $user = $this->user->select("*", "email = :email AND password = :password", ["email" => $data['email'], "password" => $data['password']]);
             if (empty($user)) {
                 throw new Exception("Sai mật khẩu");
+            } else if ($user[0]['status'] == 0) {
+                throw new Exception("Tài khoản đang bị khoá");
             }
             $_SESSION['success'] = true;
             $_SESSION['message'] = "Đăng nhập thành công";

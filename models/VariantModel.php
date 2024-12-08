@@ -42,6 +42,12 @@ GROUP BY
         $list = $stmt->fetch(PDO::FETCH_ASSOC);
         return $list;
     }
+    public function getVariantByNow($variant_id){
+        $sql = "SELECT * from products a inner join variants b on a.product_id = b.product_id
+        inner join colors c on b.color_id = c.color_id inner join sizes d on b.size_id = d.size_id
+        where b.variant_id = $variant_id";
+        return $this->selectAll($sql);
+    }
     public function getColor()
     {
         $sql = "SELECT * FROM colors";

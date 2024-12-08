@@ -54,26 +54,30 @@ if (isset($_SESSION['success'])) {
 
                             </td>
                             <td>
-                                <a onclick="return confirm('Các danh mục con của danh mục này cũng sẽ bị xoá, bạn có chắc chắn không?')" href="?role=admin&controller=category&action=delete&id=<?= $item['category_id'] ?>">
-                                    <button class="btn btn-danger btn-sm">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </a>
-                            </td>
-                            <td>
                                 <a href="?role=admin&controller=category&action=show&id=<?= $item['category_id'] ?>">
                                     <button class="btn btn-primary btn-sm">
                                         <i class="fa-solid fa-eye"></i>
                                     </button>
                                 </a>
                             </td>
-                            <td>
-                                <a href="?role=admin&controller=category&action=changeStatus&id=<?= $item['category_id'] ?>&status=<?= $item['status'] ?>">
-                                    <button class="btn btn-secondary btn-sm">
-                                        <i class="fa fa-ban"></i> <?php echo $item['status'] == 1 ? 'disable' : 'enable' ?>
-                                    </button>
-                                </a>
-                            </td>
+                            <?php
+                            if ($_SESSION['user']['role_id'] == 1) {
+                            ?>
+                                <td>
+                                    <a onclick="return confirm('Các danh mục con của danh mục này cũng sẽ bị xoá, bạn có chắc chắn không?')" href="?role=admin&controller=category&action=delete&id=<?= $item['category_id'] ?>">
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="?role=admin&controller=category&action=changeStatus&id=<?= $item['category_id'] ?>&status=<?= $item['status'] ?>">
+                                        <button class="btn btn-secondary btn-sm">
+                                            <i class="fa fa-ban"></i> <?php echo $item['status'] == 1 ? 'disable' : 'enable' ?>
+                                        </button>
+                                    </a>
+                                </td>
+                            <?php } ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -84,9 +88,9 @@ if (isset($_SESSION['success'])) {
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const products = document.querySelectorAll(".product"); 
-        const itemsPerPage = 5; 
-        const totalPages = Math.ceil(products.length / itemsPerPage); 
+        const products = document.querySelectorAll(".product");
+        const itemsPerPage = 5;
+        const totalPages = Math.ceil(products.length / itemsPerPage);
         const paginationContainer = document.getElementById("pagination");
         let currentPage = 1;
 

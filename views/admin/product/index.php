@@ -34,18 +34,18 @@
                 <table class="table table-bordered align-middle" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Product Name</th>
-                            <th>View</th>
-                            <th>Category</th>
-                            <th>Image</th>
-                            <th colspan="4">Actions</th>
+                            <th>Thứ tự</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Lượt xem</th>
+                            <th>Danh mục</th>
+                            <th>Ảnh</th>
+                            <th colspan="4">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($product as $key => $item) : ?>
 
-                            <tr>
+                            <tr class="product">
                                 <td><?= $key + 1 ?></td>
                                 <td><?= $item['product_name'] ?></td>
                                 <td><?= $item['product_view'] ?></td>
@@ -61,13 +61,19 @@
                                         </button>
                                     </a>
                                 </td>
-                                <td>
-                                    <a onclick="return confirm('Các biển thể của sản phẩm này cũng sẽ bị xoá, bạn có chắc chắn không?')" href="?role=admin&controller=product&action=delete&id=<?= $item['product_id'] ?>">
-                                        <button class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </a>
-                                </td>
+                                <?php
+                                if ($_SESSION['user']['role_id'] == 1) {
+                                ?>
+                                    <td>
+                                        <a onclick="return confirm('Các biển thể của sản phẩm này cũng sẽ bị xoá, bạn có chắc chắn không?')" href="?role=admin&controller=product&action=delete&id=<?= $item['product_id'] ?>">
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                <?php
+                                }
+                                ?>
                                 <td>
                                     <a href="?role=admin&controller=product&action=show&id=<?= $item['product_id'] ?>">
                                         <button class="btn btn-primary btn-sm">
@@ -75,20 +81,67 @@
                                         </button>
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="?role=admin&controller=product&action=changeStatus&id=<?= $item['product_id'] ?>&status=<?= $item['status'] ?>">
-                                        <button class="btn btn-secondary btn-sm">
-                                            <i class="fa fa-ban"></i> <?php echo $item['status'] == 1 ? 'disable' : 'enable' ?>
-                                        </button>
-                                    </a>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <a href="?role=admin&controller=category&page=2">>></a>
+                <div id="pagination" class="float-right"></div>
             </div>
         </div>
     </div>
 
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const products = document.querySelectorAll(".product");
+        const itemsPerPage = 5;
+        const totalPages = Math.ceil(products.length / itemsPerPage);
+        const paginationContainer = document.getElementById("pagination");
+        let currentPage = 1;
+
+        function showPage(page) {
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            products.forEach((product, index) => {
+                product.style.display = index >= start && index < end ? "table-row" : "none";
+            });
+        }
+
+        function renderPagination() {
+            paginationContainer.innerHTML = "";
+            if (currentPage > 1) {
+                const prevButton = document.createElement("button");
+                prevButton.classList.add("btn", "border-primary", "text-primary", "m-1");
+                prevButton.textContent = "←";
+                prevButton.onclick = function() {
+                    currentPage--;
+                    updatePagination();
+                };
+                paginationContainer.appendChild(prevButton);
+            }
+            const currentButton = document.createElement("button");
+            currentButton.classList.add("btn", "btn-primary", "m-1");
+            currentButton.textContent = currentPage;
+            currentButton.disabled = true;
+            paginationContainer.appendChild(currentButton);
+
+            if (currentPage < totalPages) {
+                const nextButton = document.createElement("button");
+                nextButton.classList.add("btn", "border-primary", "text-primary", "m-1");
+                nextButton.textContent = "→";
+                nextButton.onclick = function() {
+                    currentPage++;
+                    updatePagination();
+                };
+                paginationContainer.appendChild(nextButton);
+            }
+        }
+
+        function updatePagination() {
+            showPage(currentPage);
+            renderPagination();
+        }
+
+        updatePagination();
+    });
+</script>
