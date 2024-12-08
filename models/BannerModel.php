@@ -5,7 +5,7 @@ class BannerModel extends Model
     public function getAllBanner()
     {
         try {
-            $list = $this->select("*", "status=:status order by count", ["status" => 1]);
+            $list = $this->select("*", "1=1 order by count");
             return $list;
         } catch (\Throwable $th) {
          }

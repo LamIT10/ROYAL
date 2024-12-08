@@ -35,7 +35,6 @@ class OrderController extends Controller
     public function createOrder($payment_method, $payment_status)
     {
         try {
-
             if (isset($_SESSION['voucher']))
                 $voucher_id = $_SESSION['voucher']['voucher_id'];
             else $voucher_id = null;

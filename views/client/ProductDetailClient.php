@@ -157,7 +157,7 @@ $product = $productDetail['product'][0];
                             <label for="quantity_cart">Số lượng:</label><br>
                             <input type="number" class="form-control w-25 d-inline" min="1" value="1" id="quantity_cart" name="quantity_cart">
                             <br>
-                            <button type="submit" name="addCart" class="btn btn-orange w-100 mt-3">Add to cart</button>
+                            <button type="submit" name="addCart" class="btn btn-orange w-100 mt-3">Thêm vào giỏ hàng</button>
                         </form>
                 <?php
                     } else {

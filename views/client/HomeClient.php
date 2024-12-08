@@ -16,36 +16,30 @@
         margin: 8px 0;
     }
 </style>
-<div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <?php
-        for ($i = 0; $i < count($listBanners); $i++) {
-        ?>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $i ?>" <?php echo $i == 0 ? "class='active' aria-current='true'"  : "" ?> aria-label="Slide <?= $i + 1 ?>"></button>
-        <?php
-        }
-        ?>
-    </div>
+
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <?php
         foreach ($listBanners as $key => $value):
         ?>
-            <div class="carousel-item active">
-                <img src="uploads/<?= $value['banner_link'] ?>" class="d-block w-100" alt="">
+            <div class="carousel-item <?= $key == 0 ? 'active' : '' ?>">
+                <img src="uploads/<?= $value['banner_link'] ?>" class="d-block w-100" alt="Banner Image">
             </div>
         <?php
         endforeach;
         ?>
+
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+
 <?php
 // var_dump($listView);
 ?>

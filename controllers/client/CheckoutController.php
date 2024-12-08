@@ -18,34 +18,22 @@ class CheckoutController extends Controller
     }
     public function index()
     {
-        try {
-            $title = "Checkout";
-            $layoutPath = "checkout_layout";
-            $idCartDetail = $_SESSION['cart'];
-            $order = [];
-            $i = 0;
-            foreach ($idCartDetail as $key => $value) {
-                $order[] = $this->cart->getCartDetailById($value);
-                $inStock = $this->variant->selectOne("quantity", "variant_id = :variant_id", ["variant_id" => $order[$i]['variant_id']]);
-                if ($order[$i]['quantity_cart'] > $inStock['quantity']) {
-                    throw new Exception("Một số sản phẩm trong giỏ hàng hiện có số lượng không hợp lệ!");
-                }
-                $i++;
-            }
-            $total = $this->getTotalPrice($idCartDetail);
-            $totalFinal = 0;
-            $discount = 0;
-            $inforUsedTo = $this->infor->select("*", "user_id = {$_SESSION['user']['user_id']}");
-            if (isset($_SESSION['voucher'])) {
-                $discount = $_SESSION['voucher']['discount'];
-                $totalFinal = $total - $discount;
-            }
-            $this->renderView($layoutPath, "", ["title" => $title, "order" => $order, "totalPrice" => $total, "totalFinal" => $totalFinal, "discount" => $discount, "inforUsedTo" => $inforUsedTo]);
-        } catch (\Throwable $th) {
-            $_SESSION['success'] = false;
-            $_SESSION['message'] = $th->getMessage();
-            header("Location: ?controller=cart");
+        $title = "Checkout";
+        $layoutPath = "checkout_layout";
+        $idCartDetail = $_SESSION['cart'];
+        $order = [];
+        foreach ($idCartDetail as $key => $value) {
+            $order[] = $this->cart->getCartDetailById($value);
         }
+        $total = $this->getTotalPrice($idCartDetail);
+        $totalFinal = 0;
+        $discount = 0;
+        $inforUsedTo = $this->infor->select("*", "user_id = {$_SESSION['user']['user_id']}");
+        if (isset($_SESSION['voucher'])) {
+            $discount = $_SESSION['voucher']['discount'];
+            $totalFinal = $total - $discount;
+        }
+        $this->renderView($layoutPath, "", ["title" => $title, "order" => $order, "totalPrice" => $total, "totalFinal" => $totalFinal, "discount" => $discount, "inforUsedTo" => $inforUsedTo]);
     }
     public function getTotalPrice($data = [])
     {

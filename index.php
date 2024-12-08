@@ -1,14 +1,32 @@
 <?php
-
 session_start();
 
 require 'bootstrap.php';
 
 $role = $_GET['role'] ?? 'client';
 
+if ($role == 'admin') {
+    if (!isset($_SESSION['user'])) {
+        $_SESSION['success'] = false;
+        $_SESSION['message'] = 'Bạn chưa đăng nhập';
+        header("Location: index.php");
+    } else {
+        if ($_SESSION['user']['role_id'] ==  3) {
+            $_SESSION['success'] = false;
+            $_SESSION['message'] = 'Bạn không có quyền truy cập';
+            header("Location: ./");
+        }
+    }
+}
+
 $controllerCheckAuth = $_GET['controller'] ?? 'home';
 
+if ($role == 'admin') {
+    divideAdmin($controllerCheckAuth);
+}
+
 authLogin($controllerCheckAuth);
+
 
 $controllerName = ucfirst(strtolower($controllerCheckAuth)) . "Controller";
 
