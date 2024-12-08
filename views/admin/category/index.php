@@ -25,12 +25,12 @@ if (isset($_SESSION['success'])) {
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Category Name</th>
+                        <th>STT</th>
+                        <th>Tên danh mục</th>
                         <th>Parent Id</th>
-                        <th>Status</th>
+                        <th>Trạng thái</th>
                         <th>Banner</th>
-                        <th colspan="4">Actions</th>
+                        <th colspan="4">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>

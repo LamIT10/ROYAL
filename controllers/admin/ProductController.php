@@ -4,6 +4,7 @@ class ProductController extends Controller
     public $product;
     public $category;
     public $variant;
+    public $order;
     public function __construct()
     {
         $this->loadModel('CategoryModel');
@@ -12,6 +13,8 @@ class ProductController extends Controller
         $this->product = new ProductModel();
         $this->loadModel('VariantModel');
         $this->variant = new VariantModel();
+        $this->loadModel('OrderModel');
+        $this->order = new OrderModel();
     }
     public function index()
     {
@@ -424,13 +427,18 @@ class ProductController extends Controller
                 throw new Exception("URL thiếu tham số ID", 400);
             }
             $id = $_GET['id'];
-            $pro = $this->product->selectOne("*", "product_id = :id", ["id" => $id]);
-            if (empty($pro)) {
-                throw new Exception("Không tìm thấy sản phẩm có ID $id", 401);
+            $isInOrder = $this->order->checkProductInOrder($id);
+            if (!empty($isInOrder)) {
+                throw new Exception("Sản phẩm đang được đặt mua, không thể xoá", 400);
+            } else {
+                $pro = $this->product->selectOne("*", "product_id = :id", ["id" => $id]);
+                if (empty($pro)) {
+                    throw new Exception("Không tìm thấy sản phẩm có ID $id", 401);
+                }
+                $this->product->delete("product_id = :id", ["id" => $id]);
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = "Xoá sản phẩm thành thành công";
             }
-            $this->product->delete("product_id = :id", ["id" => $id]);
-            $_SESSION['success'] = true;
-            $_SESSION['message'] = "Xoá sản phẩm thành thành công";
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['message'] = $th->getMessage();
@@ -445,13 +453,18 @@ class ProductController extends Controller
             }
             $id = $_GET['id'];
             $product_id = $_GET['product_id'];
-            $variant = $this->variant->selectOne("*", "variant_id = :variant_id and product_id = :product_id", ["variant_id" => $id, "product_id" => $product_id]);
-            if (empty($variant)) {
-                throw new Exception("Không tìm thấy biến thể có ID $id của sản phẩm có ID $product_id", 401);
+            $isInOrder = $this->order->checkVariantInOrder($id);
+            if (!empty($isInOrder)) {
+                throw new Exception("Biến thể đang được đặt mua, không thể xoá", 400);
+            } else {
+                $variant = $this->variant->selectOne("*", "variant_id = :variant_id and product_id = :product_id", ["variant_id" => $id, "product_id" => $product_id]);
+                if (empty($variant)) {
+                    throw new Exception("Không tìm thấy biến thể có ID $id của sản phẩm có ID $product_id", 401);
+                }
+                $this->variant->delete("variant_id = :id", ["id" => $id]);
+                $_SESSION['success'] = true;
+                $_SESSION['message'] = "Xoá biến thể thành thành công";
             }
-            $this->variant->delete("variant_id = :id", ["id" => $id]);
-            $_SESSION['success'] = true;
-            $_SESSION['message'] = "Xoá biến thể thành thành công";
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['message'] = $th->getMessage();

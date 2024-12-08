@@ -56,17 +56,17 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Banner_link</th>
-                                    <th>Create_at</th>
-                                    <th>Update_at</th>
-                                    <th>Order</th>
-                                    <th>Actions</th>
+                                    <th>Ảnh</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th>Thứ tự</th>
+                                    <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($banner as $key => $item) : ?>
 
-                                    <tr>
+                                    <tr class="product">
                                         <td><?= $key + 1 ?> </td>
                                         <td><img src="uploads/<?= $item['banner_link'] ?>" alt="Banner" width="80px"></td>
                                         <td><?= $item['create_at'] ?></td>
@@ -87,13 +87,66 @@
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
-                        </table>
-                    </div cl>
-                </div>
 
+                        </table>
+                        <div id="pagination" class="float-right"></div>
+                    </div>
+
+                </div>
             </div>
-            <a href="?role=admin&controller=banner&page=2">>></a>
         </div>
     </div>
-</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const products = document.querySelectorAll(".product");
+            const itemsPerPage = 5;
+            const totalPages = Math.ceil(products.length / itemsPerPage);
+            const paginationContainer = document.getElementById("pagination");
+            let currentPage = 1;
 
+            function showPage(page) {
+                const start = (page - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                products.forEach((product, index) => {
+                    product.style.display = index >= start && index < end ? "table-row" : "none";
+                });
+            }
+
+            function renderPagination() {
+                paginationContainer.innerHTML = "";
+                if (currentPage > 1) {
+                    const prevButton = document.createElement("button");
+                    prevButton.classList.add("btn", "border-primary", "text-primary", "m-1");
+                    prevButton.textContent = "←";
+                    prevButton.onclick = function() {
+                        currentPage--;
+                        updatePagination();
+                    };
+                    paginationContainer.appendChild(prevButton);
+                }
+                const currentButton = document.createElement("button");
+                currentButton.classList.add("btn", "btn-primary", "m-1");
+                currentButton.textContent = currentPage;
+                currentButton.disabled = true;
+                paginationContainer.appendChild(currentButton);
+
+                if (currentPage < totalPages) {
+                    const nextButton = document.createElement("button");
+                    nextButton.classList.add("btn", "border-primary", "text-primary", "m-1");
+                    nextButton.textContent = "→";
+                    nextButton.onclick = function() {
+                        currentPage++;
+                        updatePagination();
+                    };
+                    paginationContainer.appendChild(nextButton);
+                }
+            }
+
+            function updatePagination() {
+                showPage(currentPage);
+                renderPagination();
+            }
+
+            updatePagination();
+        });
+    </script>

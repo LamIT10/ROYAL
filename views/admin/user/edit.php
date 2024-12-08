@@ -12,30 +12,28 @@ $type = $_GET['type'];
 
         <div class="mb-3">
             <label for="password" class="form-label">Mật khẩu:</label>
-            <input type="password" class="form-control" disabled value="<?= $user['password'] ?>" id="password" name="password">
+            <input type="password" hidden class="form-control" disabled value="<?= $user['password'] ?>" id="password" name="password">
             <p><?php getErorr('password') ?></p>
         </div>
 
-        <?php
-        if ($type == 'admin') {
-        ?>
-            <div class="mb-3">
-                <label class="form-label">Quyền Admin</label>
-                <div class="col-md-4 d-flex gap-5">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="role_id" id="roleAdmin" value="1">
-                        <label class="form-check-label" for="roleAdmin">Owner</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="role_id" id="roleStaff" value="2">
-                        <label class="form-check-label" for="roleStaff">Staff</label>
-                    </div>
+        <div class="mb-3">
+            <label class="form-label">Chức vụ</label>
+            <div class="col-md-12 d-flex gap-5">
+                <div class="form-check">
+                    <input class="form-check-input" <?= $user['role_id'] == 1 ? 'checked' : '' ?> type="radio" name="role_id" id="roleAdmin" value="1">
+                    <label class="form-check-label" for="roleAdmin">Chủ shop</label>
                 </div>
-                <p><?php getErorr('role_id') ?></p>
+                <div class="form-check">
+                    <input class="form-check-input" <?= $user['role_id'] == 2 ? 'checked' : '' ?> type="radio" name="role_id" id="roleStaff" value="2">
+                    <label class="form-check-label" for="roleStaff">Nhân viên</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" <?= $user['role_id'] == 3 ? 'checked' : '' ?> type="radio" name="role_id" id="roleCus" value="3">
+                    <label class="form-check-label" for="roleCus">Khách hàng</label>
+                </div>
             </div>
-        <?php
-        }
-        ?>
+            <p><?php getErorr('role_id') ?></p>
+        </div>
 
         <div class="mb-3">
             <label for="address" class="form-label">Địa chỉ:</label>

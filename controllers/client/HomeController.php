@@ -18,9 +18,10 @@ class HomeController extends Controller
           $category = $this->category->select("*");
           $listBanners = $this->banner->getAllBanner();
           $listView = $this->product->getProductFilterByView();
+          $listNew = $this->product->getProductFilterNew();
           $title = "Trang chủ";
           $content = "client/HomeClient";
           $layoutPath = "client_layout";
-          $this->renderView($layoutPath, $content, ["title" => $title, "content" => $content, "category" => $category, "listBanners" => $listBanners, "listView" => $listView]);
+          $this->renderView($layoutPath, $content, ["title" => $title, "content" => $content, "category" => $category, "listBanners" => $listBanners, "listView" => $listView, "listNew" => $listNew]);
      }
 }

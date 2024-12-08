@@ -25,7 +25,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="?role=admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Trang chủ</span></a>
             </li>
 
             <!-- Divider -->
@@ -114,6 +114,11 @@
                 <a class="nav-link" href="?role=admin&controller=order">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Quản lý đơn hàng</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Về trang web</span></a>
             </li>
 <hr>
 

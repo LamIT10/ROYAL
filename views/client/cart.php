@@ -52,12 +52,13 @@ $count = count($_SESSION['cart']) > 1 ? '(' . count($_SESSION['cart']) . ')' : '
                                                         <input style="width: 50px;" type="text" id="quantity" name="quantity_cart" class="form-control mx-2 text-center" value="<?= $value['quantity_cart'] ?>">
                                                         <button type="button" class="btn btn-outline-success" onclick="updateQuantity(1)">+</button>
                                                     </div>
-                                                    <button id="btn-edit" class="btn btn-outline-primary btn-sm ms-3">Edit</button>
+                                                    <button id="btn-edit" class="btn btn-outline-primary btn-sm ms-3">
+                                                        <i class="fa fa-pencil-alt"></i></button>
 
                                                 </form>
 
                                             </div>
-                                            <a href="?controller=cart&action=delete&id=<?= $value['detail_id'] ?>" class="btn btn-outline-danger btn-sm ms-3">Delete</a>
+                                            <a href="?controller=cart&action=delete&id=<?= $value['detail_id'] ?>" class="btn btn-outline-danger btn-sm ms-3"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>

@@ -13,18 +13,26 @@
             </div>
             <hr>
             <div class="row mb-3">
-                <div class="col-sm-4"><strong>Username:</strong></div>
+                <div class="col-sm-4"><strong>Tên dăng nhập:</strong></div>
                 <div class="col-sm-8"><?= $user['username'] ?></div>
             </div>
             <hr>
             <div class="row mb-3">
-                <div class="col-sm-4"><strong>Full Name:</strong></div>
+                <div class="col-sm-4"><strong>Họ và tên:</strong></div>
                 <div class="col-sm-8"><?= $user['full_name'] ?></div>
             </div>
             <hr>
             <div class="row mb-3">
-                <div class="col-sm-4"><strong>Role:</strong></div>
-                <div class="col-sm-8"><?= $user['role_id'] ?></div>
+                <div class="col-sm-4"><strong>Chức vụ:</strong></div>
+                <div class="col-sm-8"><?php
+                                        if ($user['role_id'] == 1) {
+                                            echo 'Chủ shop';
+                                        } else if ($user['role_id'] == 2) {
+                                            echo 'Nhân viên';
+                                        } else {
+                                            echo 'Khách hàng';
+                                        }
+                                        ?></div>
             </div>
             <hr>
             <div class="row mb-3">
@@ -33,34 +41,42 @@
             </div>
             <hr>
             <div class="row mb-3">
-                <div class="col-sm-4"><strong>Phone:</strong></div>
+                <div class="col-sm-4"><strong>Số điện thoại:</strong></div>
                 <div class="col-sm-8"><?= $user['phone'] ?></div>
             </div>
             <hr>
             <div class="row mb-3">
-                <div class="col-sm-4"><strong>Address:</strong></div>
+                <div class="col-sm-4"><strong>Địa chỉ:</strong></div>
                 <div class="col-sm-8"><?= $user['address'] ?></div>
             </div>
             <hr>
             <div class="row mb-3">
-                <div class="col-sm-4"><strong>Date of Birth:</strong></div>
+                <div class="col-sm-4"><strong>Ngày sinh:</strong></div>
                 <div class="col-sm-8"><?= $user['date_of_birth'] ?></div>
             </div>
             <hr>
             <div class="row mb-3">
-                <div class="col-sm-4"><strong>Status:</strong></div>
-                <div class="col-sm-8"><span class="badge bg-success"><?= $user['status'] ?></span></div>
+                <div class="col-sm-4"><strong>Trạng thái:</strong></div>
+                <span style="width: max-content" class="col-sm-8 p-3 text-white rounded bg-<?= $user['status'] == 1 ? 'success' : 'danger' ?>"><?= $user['status'] == 1 ? 'Active' : 'Inactive' ?></span>
             </div>
             <hr>
             <div class="row mb-3">
-                <div class="col-sm-4"><strong>Created At:</strong></div>
+                <div class="col-sm-4"><strong>Ngày tạo:</strong></div>
                 <div class="col-sm-8"><?= $user['create_at'] ?></div>
             </div>
             <hr>
             <div class="row mb-3">
-                <div class="col-sm-4"><strong>Updated At:</strong></div>
+                <div class="col-sm-4"><strong>Ngày cập nhật:</strong></div>
                 <div class="col-sm-8"><?= $user['update_at'] ?></div>
             </div>
-         </div>
+        </div>
+        <?php
+        if ($user['role_id'] == 3) {
+            $view = "customer";
+        } else {
+            $view = "admin";
+        }
+        ?>
+        <div><a href="?role=admin&controller=user&view=<?= $view ?>" class="btn btn-primary">Về trang danh sách</a></div>
     </div>
 </div>

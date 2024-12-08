@@ -3,10 +3,10 @@
         <div class="container">
             <div class="footer-border-bottom pb-6 mb-5">
                 <div class="row">
-                    <div class="col-lg-4 col-xl-3">
-                        <h4 class="text-white">
-                            Sign up to Get Latest Updates
-                        </h4>
+                    <div class="col-lg-4 col-xl-3 p-4 rounded bg-white" style="width: max-content;">
+                        <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+                            <img src="uploads/logo2.png" alt="Logo" class="" width="100" />
+                        </a>
                     </div>
                     <div class="col-lg-4 col-xl-6">
                         <form class="d-flex flex-row mb-2 p-1 bg-white input-group">
@@ -16,8 +16,8 @@
                     </div>
                     <div class="col-lg-4 col-xl-3">
                         <div class="text-lg-end text-white">
-                            <span class="h6">Call Us On</span><br>
-                            <span class="h3">1-800-222-000</span>
+                            <span class="h6">Liên hệ</span><br>
+                            <span class="h3">0702024861</span>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <div class="mb-4">
                         <img src="static/img/logo-light.svg" title="" alt="">
                     </div>
-                    <div class="text-white-65 mb-4 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</div>
+                    <div class="text-white-65 mb-4 text-white">ROYAL - UY TÍN TẠO NÊN CHẤT LƯỢNG</div>
                     <div class="nav footer-socila-icon">
                         <a href="#">
                             <i class="fab fa-facebook-f"></i>
@@ -103,35 +103,13 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-6 col-lg-3 my-4">
-                    <h5 class="text-white h6 mb-4">Company</h5>
-                    <div class="white-link">
-                        <div class="d-flex pb-3">
-                            <div class="avatar avatar-lg rounded">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" title="" alt="">
-                            </div>
-                            <div class="col ps-3">
-                                <small class="text-white-65">29 March 2021</small>
-                                <h6 class="font-w-500 h6 m-0"><a class="text-white" href="#">Markdown Language Sample Blog Post Styling</a></h6>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="avatar avatar-lg rounded">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" title="" alt="">
-                            </div>
-                            <div class="col ps-3">
-                                <small class="text-white-65">29 March 2021</small>
-                                <h6 class="font-w-500 h6 m-0"><a class="text-white" href="#">Markdown Language Sample Blog Post Styling</a></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
     <div class="footer-bottom footer-border-top light py-3">
         <div class="container text-center">
-            <p class="m-0">© 2021 copyright <a href="#" class="text-reset text-white">Bootdey.com</a></p>
+            <p class="m-0">© 2021 copyright <a href="#" class="text-reset text-white">Royal.com.vn</a></p>
         </div>
     </div>
 </footer>

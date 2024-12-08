@@ -92,4 +92,18 @@ class OrderModel extends Model
         group by c.product_id order by totalQuantity desc limit 5";
         return $this->selectAll($sql);
     }
+    public function checkProductInOrder($product_id)
+    {
+        $sql = "SELECT * FROM order_details a inner join variants b on a.variant_id = b.variant_id 
+        inner join orders o on o.order_id = a.order_id
+        where b.product_id = $product_id and (o.order_status = 0 or o.order_status = 1 or o.order_status = 2)";
+        return $this->selectAll($sql);
+    }
+    public function checkVariantInOrder($variant_id)
+    {
+        $sql = "SELECT * FROM order_details a
+        inner join orders o on o.order_id = a.order_id
+        where variant_id = $variant_id and (o.order_status = 0 or o.order_status = 1 or o.order_status = 2)";
+        return $this->selectAll($sql);
+    }
 }
