@@ -9,7 +9,6 @@ $mode = $_GET['view'];
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary"> <?php echo $title ?></h6>
-            <div><button class="btn btn-primary"><a class="text-light" href="?role=admin&controller=user&action=add&type=<?= $mode ?>">Add <?= $mode ?></a></button></div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -17,13 +16,18 @@ $mode = $_GET['view'];
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th style="width: 400px">Full Name</th>
-                            <th>Username</th>
+                            <th style="width: 400px">Họ tên</th>
+                            <th>Tên đăng nhập</th>
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>Status</th>
-                            <th>Avatar</th>
-                            <th>Actions</th>
+                            <th>Số điện thoại</th>
+                            <th>Trạng thái</th>
+                            <?php
+                            if ($_GET['view'] == 'admin') {
+                                echo "<th>Chức vụ</th>";
+                            }
+                            ?>
+                            <th>Ảnh đại diện</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +39,13 @@ $mode = $_GET['view'];
                                 <td><?= $item['email'] ?></td>
                                 <td><?= $item['phone'] ?></td>
                                 <td class="<?php echo $item['status'] == 1 ? 'text-success' : 'text-danger' ?>"><?= $item['status'] == 1 ? 'Active' : 'Inactive' ?> </td>
+                                <?php
+                                if ($item['role_id'] != 3) {
+                                ?>
+                                    <td><?php echo $item['role_id'] == 1 ? 'Chủ shop' : 'Nhân viên' ?></td>
+                                <?php
+                                }
+                                ?>
                                 <td><?php
                                     echo "<img style='border-radius: 10%;' src='uploads/" . $item['avatar'] . "' width='70px'>";
                                     ?></td>
@@ -46,13 +57,7 @@ $mode = $_GET['view'];
                                             </button>
                                         </a>
                                     </div>
-                                    <div class="mr-2">
-                                        <a onclick="return confirm('Các danh mục con của danh mục này cũng sẽ bị xoá, bạn có chắc chắn không?')" href="?role=admin&controller=category&action=delete&id=">
-                                            <button class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </a>
-                                    </div>
+
                                     <div class="mr-2">
                                         <a href="?role=admin&controller=user&action=show&id=<?= $item['user_id'] ?>">
                                             <button class="btn btn-primary btn-sm">
@@ -79,10 +84,11 @@ $mode = $_GET['view'];
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const products = document.querySelectorAll(".product"); // Lấy tất cả sản phẩm
-        const itemsPerPage = 2; // Số sản phẩm mỗi trang
-        const totalPages = Math.ceil(products.length / itemsPerPage); // Tổng số trang
+        const products = document.querySelectorAll(".product");
+        const itemsPerPage = 5;
+        const totalPages = Math.ceil(products.length / itemsPerPage);
         const paginationContainer = document.getElementById("pagination");
+        let currentPage = 1;
 
         function showPage(page) {
             const start = (page - 1) * itemsPerPage;
@@ -93,17 +99,40 @@ $mode = $_GET['view'];
         }
 
         function renderPagination() {
-            for (let i = 1; i <= totalPages; i++) {
-                const button = document.createElement("button");
-                button.classList.add("btn", "border-primary", "text-primary",'m-1');
-                button.textContent = i;
-                button.onclick = function() {
-                    showPage(i);
+            paginationContainer.innerHTML = "";
+            if (currentPage > 1) {
+                const prevButton = document.createElement("button");
+                prevButton.classList.add("btn", "border-primary", "text-primary", "m-1");
+                prevButton.textContent = "←";
+                prevButton.onclick = function() {
+                    currentPage--;
+                    updatePagination();
                 };
-                paginationContainer.appendChild(button);
+                paginationContainer.appendChild(prevButton);
+            }
+            const currentButton = document.createElement("button");
+            currentButton.classList.add("btn", "btn-primary", "m-1");
+            currentButton.textContent = currentPage;
+            currentButton.disabled = true;
+            paginationContainer.appendChild(currentButton);
+
+            if (currentPage < totalPages) {
+                const nextButton = document.createElement("button");
+                nextButton.classList.add("btn", "border-primary", "text-primary", "m-1");
+                nextButton.textContent = "→";
+                nextButton.onclick = function() {
+                    currentPage++;
+                    updatePagination();
+                };
+                paginationContainer.appendChild(nextButton);
             }
         }
-        showPage(1); // Hiển thị trang đầu tiên
-        renderPagination(); // Tạo các nút phân trang
+
+        function updatePagination() {
+            showPage(currentPage);
+            renderPagination();
+        }
+
+        updatePagination();
     });
 </script>

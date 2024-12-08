@@ -64,7 +64,7 @@
         <div class="container p-3 ">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-                    <img src="https://img.icons8.com/ios/50/000000/online-store.png" alt="Logo" class="bi me-2" width="40" height="40" />
+                    <img src="uploads/logo2.png" alt="Logo" class="" width="100" />
                 </a>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 fw-semibold" style=" font-size: 14px">
 
@@ -125,7 +125,7 @@
                             </div>
 
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="?controller=logout">Logout</a></li>
+                                <li><a class="dropdown-item" href="?controller=logout">Đăng xuất</a></li>
                                 <?php
                                 if (($_SESSION['user']['role_id'] == 1 || $_SESSION['user']['role_id'] == 2) && isset($_SESSION['user'])) {
                                 ?>
@@ -149,9 +149,6 @@
                     <a href="?controller=cart" class="text-dark text-decoration-none position-relative d-flex flex-column align-items-center">
                         <i class="bi bi-bag fs-6"></i>
                         <small style="font-size: 13px">Giỏ hàng</small>
-                        <span
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            style="font-size: 0.75em">1</span>
                     </a>
                 </div>
             </div>

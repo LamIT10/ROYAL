@@ -22,6 +22,17 @@ class ProductModel extends Model
         $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $list;
     }
+    public function getProductFilterNew()
+    {
+        $sql =
+            "SELECT a.product_name, a.product_id,a.image, b.base_price,b.sale_price, b.color_id, b.size_id from categories ca inner join products a on ca.category_id = a.category_id 
+            inner join variants b on a.product_id = b.product_id
+            where a.status = 1 and a.status=1 and b.variant_main =1 order by b.create_at desc limit 8";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $list;
+    }
     public function getProductDetail($id, $colorId, $sizeId)
     {
         $sql = "SELECT * from products a inner join variants b 

@@ -11,11 +11,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Code</th>
-                            <th>Discount</th>
-                            <th>Quantity</th>
-                            <th>Min Price</th>
-                            <th>Description</th>
-                            <th colspan="2">Actions</th>
+                            <th>Giảm giá</th>
+                            <th>Số lượng</th>
+                            <th>Giá nhỏ nhất</th>
+                            <th>Mô tả</th>
+                            <th colspan="2">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +46,6 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <a href="?role=admin&controller=category&page=2">>></a>
             </div>
         </div>
     </div>

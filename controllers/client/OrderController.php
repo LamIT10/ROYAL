@@ -87,7 +87,7 @@ class OrderController extends Controller
                 $this->voucher->decrease($voucher_id);
                 $this->voucher->addToTableUsedTo($voucher_id, $_SESSION['user']['user_id']);
             }
-            
+
             $_SESSION['success'] = true;
             $_SESSION['message'] = "Đặt hàng thành công";
         } catch (\Throwable $th) {
@@ -102,21 +102,44 @@ class OrderController extends Controller
     }
     public function store()
     {
-        $_SESSION['dataOrder'] = $_POST;
-        if ($_POST['payment_method'] == 0) {
-            $this->createOrder(0, 0);
-        } else if ($_POST['payment_method'] == 1) {
-            $url = $this->vnpayment($_POST['final_price']);
-            header("Location: " . $url);
+        try {
+            $_SESSION['dataOrder'] = $_POST;
+            $data = $_SESSION['dataOrder'];
+            $_SESSION['error'] = [];
+            if (!isset($_SESSION['inforUsedTo'])) {
+                if ($data['name'] == '') {
+                    $_SESSION['error']['name'] = 'Vui lòng nhập tên người nhận hàng';
+                }
+                if ($data['city_name'] == '' || $data['district_name'] == '' || $data['ward_name'] == '') {
+                    $_SESSION['error']['address'] = 'Vui lòng nhập đầy đủ địa chỉ giao hàng';
+                }
+                if ($data['phone'] == '') {
+                    $_SESSION['error']['phone'] = 'Vui lòng nhập số diện thoại người nhận hàng';
+                }
+            }
+            if (!empty($_SESSION['error'])) {
+                throw new Exception("Dữ liệu lỗi");
+            } else {
+                if ($_POST['payment_method'] == 0) {
+                    $this->createOrder(0, 0);
+                } else if ($_POST['payment_method'] == 1) {
+                    $url = $this->vnpayment($_POST['final_price']);
+                    header("Location: " . $url);
+                }
+            }
+        } catch (\Throwable $th) {
+            $_SESSION['success'] = false;
+            $_SESSION['message'] = $th->getMessage();
+            header("Location: " . $_SERVER['HTTP_REFERER']);
         }
     }
     public function vnpayment($final_price)
     {
         require_once "config/config.php";
-        $vnp_TxnRef = "ROYAL" . time(); 
-        $vnp_Amount = $_POST['final_price']; 
-        $vnp_Locale = 'vn'; 
-        $vnp_BankCode = "NCB"; 
+        $vnp_TxnRef = "ROYAL" . time();
+        $vnp_Amount = $_POST['final_price'];
+        $vnp_Locale = 'vn';
+        $vnp_BankCode = "NCB";
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
 
         $inputData = array(

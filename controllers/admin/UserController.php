@@ -152,10 +152,8 @@ class UserController extends Controller
                     $_SESSION['error']['password'] = "*Mật khẩu không để trống và phải có từ 6 -> 20 kí tự";
                 }
             }
-            if ($type == 'admin') {
-                if (!$dataPost['role_id']) {
-                    $_SESSION['error']['role_id'] = "*Chọn 1 quyền quản trị";
-                }
+            if (!$dataPost['role_id']) {
+                $_SESSION['error']['role_id'] = "*Chọn 1 quyền quản trị";
             }
             if ($dataPost['email'] == '' || !filter_var($dataPost['email'], FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['error']['email'] = "*Yêu cầu nhập email và đúng định dạng";

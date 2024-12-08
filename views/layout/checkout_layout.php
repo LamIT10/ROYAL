@@ -94,6 +94,7 @@
         }
     }    ?>
     <div class="container my-5">
+        <a class="btn btn-danger" style="position: fixed; top: 20px; left: 20px;" href="?controller=cart">Huỷ thanh toán</a>
         <div class="row">
             <!-- Form bên trái -->
             <div class="col-md-7" style="padding:0 50px 0 70px;">
@@ -145,6 +146,7 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Họ và tên</label>
                             <input type="text" value="" id="name" name="name" class="form-control" placeholder="Nhập họ và tên">
+                            <?php getErorr('name') ?>
                         </div>
                     <?php
                     } else {
@@ -188,6 +190,7 @@
                                     <input type="hidden" id="ward_name" name="ward_name">
                                 </div>
                             </div>
+                            <?php getErorr('address') ?>
                         <?php
                         } else {
                             $arrAddres = explode(" - ", showInforRecept("address"));
@@ -209,6 +212,7 @@
                         <div class=" mb-3">
                             <label for="phone" class="form-label">Số điện thoại</label>
                             <input type="tel" id="phone" name="phone" value="" class="form-control" placeholder="Nhập số điện thoại">
+                            <?php getErorr('phone') ?>
                         </div>
                     <?php
                     } else {
@@ -325,6 +329,9 @@
 
             <!-- Bootstrap JS -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <?php
+            if (!empty($_SESSION['error'])) unset($_SESSION['error']);
+            ?>
 </body>
 
 </html>

@@ -21,7 +21,7 @@
                         <?php
                         foreach ($list as $key => $value) {
                         ?>
-                            <tr>
+                            <tr class="product">
                                 <th scope="row"><?= $key + 1 ?></th>
                                 <td><?= $value['product_name'] ?></td>
                                 <td><img src="uploads/<?= $value['image'] ?>" alt="" style="width: 80px" class="img-thumbnail"></td>
@@ -36,7 +36,62 @@
                             ?>
                     </tbody>
                 </table>
+                <div id="pagination" class="float-right"></div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const products = document.querySelectorAll(".product");
+        const itemsPerPage = 5;
+        const totalPages = Math.ceil(products.length / itemsPerPage);
+        const paginationContainer = document.getElementById("pagination");
+        let currentPage = 1;
+
+        function showPage(page) {
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            products.forEach((product, index) => {
+                product.style.display = index >= start && index < end ? "table-row" : "none";
+            });
+        }
+
+        function renderPagination() {
+            paginationContainer.innerHTML = "";
+            if (currentPage > 1) {
+                const prevButton = document.createElement("button");
+                prevButton.classList.add("btn", "border-primary", "text-primary", "m-1");
+                prevButton.textContent = "←";
+                prevButton.onclick = function() {
+                    currentPage--;
+                    updatePagination();
+                };
+                paginationContainer.appendChild(prevButton);
+            }
+            const currentButton = document.createElement("button");
+            currentButton.classList.add("btn", "btn-primary", "m-1");
+            currentButton.textContent = currentPage;
+            currentButton.disabled = true;
+            paginationContainer.appendChild(currentButton);
+
+            if (currentPage < totalPages) {
+                const nextButton = document.createElement("button");
+                nextButton.classList.add("btn", "border-primary", "text-primary", "m-1");
+                nextButton.textContent = "→";
+                nextButton.onclick = function() {
+                    currentPage++;
+                    updatePagination();
+                };
+                paginationContainer.appendChild(nextButton);
+            }
+        }
+
+        function updatePagination() {
+            showPage(currentPage);
+            renderPagination();
+        }
+
+        updatePagination();
+    });
+</script>

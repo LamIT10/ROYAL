@@ -2,7 +2,6 @@
     <div class="content-wrapper">
         <div class="container">
             <div class="row g-4">
-                <!-- Card 1: Thống kê doanh thu -->
                 <div class="col-md-4 mt-4">
                     <div class="card shadow border-0 h-100">
                         <div class="card-body text-center">
@@ -13,13 +12,12 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Quản lý sản phẩm -->
                 <div class="col-md-4 mt-4">
                     <div class="card shadow border-0 h-100">
                         <div class="card-body text-center">
                             <h5 class="card-title text-success">Sản phẩm</h5>
                             <p class="card-text text-muted">Phân tích thông tin về các sản phẩm.</p>
-                            <a href="/admin/products" class="btn btn-success">Xem chi tiết</a>
+                            <a href="?role=admin&action=product" class="btn btn-success">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>
